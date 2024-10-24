@@ -967,4 +967,53 @@ return [
             'Feature-99717-NewPSR-14ModifyBlindedConfigurationOptionsEvent.rst',
         ],
     ],
+    '$GLOBALS[\'TBE_STYLES\'][\'stylesheet\']' => [
+        'restFiles' => [
+            'Deprecation-100033-TBE_STYLESStylesheetAndStylesheet2.rst',
+        ],
+    ],
+    '$GLOBALS[\'TBE_STYLES\'][\'stylesheet2\']' => [
+        'restFiles' => [
+            'Deprecation-100033-TBE_STYLESStylesheetAndStylesheet2.rst',
+        ],
+    ],
+    '$GLOBALS[\'TBE_STYLES\'][\'skins\']' => [
+        'restFiles' => [
+            'Deprecation-100232-TBE_STYLESSkinningFunctionality.rst',
+        ],
+    ],
+    '$GLOBALS[\'TBE_STYLES\'][\'admPanel\']' => [
+        'restFiles' => [
+            'Deprecation-100232-TBE_STYLESSkinningFunctionality.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauthgroup.php\'][\'getDefaultUploadFolder\']' => [
+        'restFiles' => [
+            'Deprecation-83608-BackendUsersGetDefaultUploadFolderHook.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'postLoginFailureProcessing\']' => [
+        'restFiles' => [
+            'Deprecation-100278-PostLoginFailureProcessingHook.rst',
+            'Feature-100278-PSR-14EventAfterFailedLoginsInBackendOrFrontendUsers.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'logoff_pre_processing\']' => [
+        'restFiles' => [
+            'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
+            'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'logoff_post_processing\']' => [
+        'restFiles' => [
+            'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
+            'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauthgroup.php\'][\'backendUserLogin\']' => [
+        'restFiles' => [
+            'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
+            'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+        ],
+    ],
 ];

@@ -1100,7 +1100,7 @@ return [
             'Breaking-87193-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
-    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode'=> [
+    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode' => [
         'restFiles' => [
             'Deprecation-87277-FluidClassAliases.rst',
             'Breaking-87193-DeprecatedFunctionalityRemoved.rst',
@@ -1679,7 +1679,7 @@ return [
         'restFiles' => [
             'Deprecation-94313-ClassAbstractService.rst',
             'Breaking-96107-DeprecatedFunctionalityRemoved.rst',
-       ],
+        ],
     ],
     'TYPO3\CMS\Extbase\Mvc\Web\ReferringRequest' => [
         'restFiles' => [
@@ -2001,6 +2001,7 @@ return [
     'TYPO3\CMS\Frontend\Plugin\AbstractPlugin' => [
         'restFiles' => [
             'Breaking-98281-MakeAbstractPluginInternal.rst',
+            'Deprecation-100639-DeprecateAbstractPlugin.rst',
         ],
     ],
     'TYPO3\CMS\Backend\View\PageLayoutView' => [
@@ -2236,6 +2237,51 @@ return [
     'TYPO3\CMS\Core\Resource\Service\UserFileMountService' => [
         'restFiles' => [
             'Deprecation-97923-DeprecateUserFileMountService.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\ConditionMatcherInterface' => [
+        'restFiles' => [
+            'Deprecation-100047-DeprecatedConditionMatcherClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\TypoScript\ConditionMatching\AbstractConditionMatcher' => [
+        'restFiles' => [
+            'Deprecation-100047-DeprecatedConditionMatcherClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Configuration\TypoScript\ConditionMatching\ConditionMatcher' => [
+        'restFiles' => [
+            'Deprecation-100047-DeprecatedConditionMatcherClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatcher' => [
+        'restFiles' => [
+            'Deprecation-100047-DeprecatedConditionMatcherClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Exception\MissingTsfeException' => [
+        'restFiles' => [
+            'Deprecation-100237-TypoScriptRelatedExceptions.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\TypoScript\Exception\InvalidTypoScriptConditionException' => [
+        'restFiles' => [
+            'Deprecation-100237-TypoScriptRelatedExceptions.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\BrowseTreeView' => [
+        'restFiles' => [
+            'Deprecation-100237-TypoScriptRelatedExceptions.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\ElementBrowserPageTreeView' => [
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Resource\Service\MagicImageService' => [
+        'restFiles' => [
+            'Deprecation-99237-MagicImageService.rst',
         ],
     ],
 ];

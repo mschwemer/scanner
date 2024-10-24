@@ -1464,4 +1464,67 @@ return [
             'Deprecation-99633-GeneralUtilityPOST.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::_GP' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100053-GeneralUtility_GP.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getRecordToolTip' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100459-BackendUtilitygetRecordToolTip.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getThumbnailUrl' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100597-BackendUtilityMethodsGetThumbnailUrlAndGetLinkToDataHandlerAction.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getLinkToDataHandlerAction' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100597-BackendUtilityMethodsGetThumbnailUrlAndGetLinkToDataHandlerAction.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::linkThisScript' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100584-GeneralUtilitylinkThisScript.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::_GET' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100596-GeneralUtility_GET.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\DebugUtility::debugRows' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100653-DeprecatedSomeMethodsInDebugUtility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\DebugUtility::printArray' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100653-DeprecatedSomeMethodsInDebugUtility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\DebugUtility::debugInPopUpWindow' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-100653-DeprecatedSomeMethodsInDebugUtility.rst',
+        ],
+    ],
 ];

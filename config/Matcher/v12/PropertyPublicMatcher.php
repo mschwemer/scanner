@@ -988,4 +988,19 @@ return [
             'Deprecation-99416-VariousDoctypeRelatedPropertiesAndMethods.rst',
         ],
     ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->thisScript' => [
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->BE_USER' => [
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Localization->debugKey' => [
+        'restFiles' => [
+            'Deprecation-100657-TYPO3_CONF_VARSBElanguageDebug.rst',
+        ],
+    ],
 ];

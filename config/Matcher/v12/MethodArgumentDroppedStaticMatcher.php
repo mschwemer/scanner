@@ -8,6 +8,12 @@ return [
             'Deprecation-73516-VariousGeneralUtilityMethods.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::intExplode' => [
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-99900-GeneralUtilityIntExplodeLimitParameter.rst',
+        ],
+    ],
     'TYPO3\CMS\Core\Utility\GeneralUtility::wrapJS' => [
         'maximumNumberOfArguments' => 1,
         'restFiles' => [
@@ -87,6 +93,12 @@ return [
         'maximumNumberOfArguments' => 2,
         'restFiles' => [
             'Breaking-98069-DebugConsoleRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate' => [
+        'maximumNumberOfArguments' => 4,
+        'restFiles' => [
+            'Deprecation-100721-LabelRelatedMethodsAndArguments.rst',
         ],
     ],
 ];

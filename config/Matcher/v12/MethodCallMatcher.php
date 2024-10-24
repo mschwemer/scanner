@@ -5491,4 +5491,228 @@ return [
             'Deprecation-99685-RemoveLineBreaksFromTemplate.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Site\Entity\SiteLanguage->getTwoLetterIsoCode' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-99905-SiteLanguageIso-639-1Setting.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Site\Entity\SiteLanguage->getDirection' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-99916-SiteLanguageDirectionSetting.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Page\PageRenderer->enableDebugMode' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-99932-PageRendererEnableDebugMode.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Task\AbstractTask->isExecutionRunning' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Task\AbstractTask->markExecution' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Task\AbstractTask->unmarkExecution' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Task\AbstractTask->unmarkAllExecutions' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Task\AbstractTask->remove' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->addTask' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->removeTask' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->saveTask' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->fetchTask' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->fetchTaskRecord' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->fetchTasksWithCondition' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Scheduler->isValidTaskObject' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100247-VariousInterconnectedMethodsInEXTscheduler.rst',
+        ],
+    ],
+    'TYPO3\CMS\FrontendLogin\Event\PasswordChangeEvent->setHashedPassword' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100355-DeprecateMethodsInPasswordChangeEventInExtfelogin.rst',
+        ],
+    ],
+    'TYPO3\CMS\FrontendLogin\Event\PasswordChangeEvent->setAsInvalid' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100355-DeprecateMethodsInPasswordChangeEventInExtfelogin.rst',
+        ],
+    ],
+    'TYPO3\CMS\FrontendLogin\Event\PasswordChangeEvent->getErrorMessage' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100355-DeprecateMethodsInPasswordChangeEventInExtfelogin.rst',
+        ],
+    ],
+    'TYPO3\CMS\FrontendLogin\Event\PasswordChangeEvent->isPropagationStopped' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100355-DeprecateMethodsInPasswordChangeEventInExtfelogin.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->determineScriptUrl' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->getThisScript' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->addTagAttributes' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->getRootIcon' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->getRootRecord' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100454-LegacyTreeImplementations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->isSetSessionCookie' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->isRefreshTimeBasedCookie' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->removeCookie' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->isCookieSet' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->unpack_uc' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->appendCookieToResponse' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface->isFeatureEnabled' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100622-ExtbaseFeatureToggles.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Localization\LanguageService->getLL' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-100721-LabelRelatedMethodsAndArguments.rst',
+        ],
+    ],
 ];

@@ -723,6 +723,7 @@ return [
         'restFiles' => [
             'Deprecation-97544-PreviewURIGenerationRelatedFunctionalityInBackendUtility.rst',
             'Feature-97544-PSR-14EventsForModifyingPreviewURIs.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'determineId-PreProcessing\']' => [
@@ -949,71 +950,255 @@ return [
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'FE\'][\'defaultUserTSconfig\']' => [
         'restFiles' => [
             'Deprecation-99075-Fe_usersAndFe_groupsTSconfig.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'ext/install\'][\'update\']' => [
         'restFiles' => [
             'Deprecation-99586-RegistrationOfUpgradeWizardsViaGLOBALS.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/cache/frontend/class.t3lib_cache_frontend_abstractfrontend.php\'][\'flushByTag\']' => [
         'restFiles' => [
             'Deprecation-99592-DeprecatedFlushByTagHook.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'TYPO3\CMS\Lowlevel\Controller\ConfigurationController\'][\'modifyBlindedConfigurationOptions\']' => [
         'restFiles' => [
             'Deprecation-99717-DeprecatedModifyBlindedConfigurationOptionsHook.rst',
             'Feature-99717-NewPSR-14ModifyBlindedConfigurationOptionsEvent.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TBE_STYLES\'][\'stylesheet\']' => [
         'restFiles' => [
             'Deprecation-100033-TBE_STYLESStylesheetAndStylesheet2.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TBE_STYLES\'][\'stylesheet2\']' => [
         'restFiles' => [
             'Deprecation-100033-TBE_STYLESStylesheetAndStylesheet2.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TBE_STYLES\'][\'skins\']' => [
         'restFiles' => [
             'Deprecation-100232-TBE_STYLESSkinningFunctionality.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TBE_STYLES\'][\'admPanel\']' => [
         'restFiles' => [
             'Deprecation-100232-TBE_STYLESSkinningFunctionality.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauthgroup.php\'][\'getDefaultUploadFolder\']' => [
         'restFiles' => [
             'Deprecation-83608-BackendUsersGetDefaultUploadFolderHook.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'postLoginFailureProcessing\']' => [
         'restFiles' => [
             'Deprecation-100278-PostLoginFailureProcessingHook.rst',
             'Feature-100278-PSR-14EventAfterFailedLoginsInBackendOrFrontendUsers.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'logoff_pre_processing\']' => [
         'restFiles' => [
             'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
             'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauth.php\'][\'logoff_post_processing\']' => [
         'restFiles' => [
             'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
             'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_userauthgroup.php\'][\'backendUserLogin\']' => [
         'restFiles' => [
             'Deprecation-100307-VariousHooksRelatedToAuthenticationUsers.rst',
             'Feature-100307-PSR-14EventsForUserLoginLogout.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'TYPO3\CMS\Core\Imaging\IconFactory\'][\'overrideIconOverlay\']' => [
+        'restFiles' => [
+            'Breaking-101603-RemovedHookForOverridingIconOverlayIdentifier.rst',
+            'Feature-101603-PSR-14EventForModifyingRecordOverlayIconIdentifier.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'BE\'][\'defaultPageTSconfig\']' => [
+        'restFiles' => [
+            'Deprecation-101799-ExtensionManagementUtilityaddPageTSConfig.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'BE\'][\'defaultUserTSconfig\']' => [
+        'restFiles' => [
+            'Deprecation-101807-ExtensionManagementUtilityaddUserTSConfig.rst',
+        ],
+    ],
+    '$GLOBALS[\'TCA\'][\'someTable\'][\'types\'][\'bitmask_excludelist_bits\']' => [
+        'restFiles' => [
+            'Breaking-102108-TCATypesbitmask_Settings.rst',
+        ],
+    ],
+    '$GLOBALS[\'TCA\'][\'someTable\'][\'types\'][\'bitmask_value_field\']' => [
+        'restFiles' => [
+            'Breaking-102108-TCATypesbitmask_Settings.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'postInit\']' => [
+        'restFiles' => [
+            'Breaking-102581-RemovedHookForManipulatingContentObjectRenderer.rst',
+            'Feature-102581-PSR-14EventForModifyingContentObjectRenderer.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'getData\']' => [
+        'restFiles' => [
+            'Breaking-102614-RemovedHookForManipulatingGetDataResult.rst',
+            'Feature-102614-PSR-14EventForModifyingGetDataResult.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'getImageSourceCollection\']' => [
+        'restFiles' => [
+            'Breaking-102624-RemovedHookForManipulatingImageSourceCollection.rst',
+            'Feature-102624-PSR-14EventForModifyingImageSourceCollection.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'getImgResource\']' => [
+        'restFiles' => [
+            'Breaking-102755-ImprovedGetImageResourceFunctionality.rst',
+            'Feature-102755-PSR-14EventForModifyingGetImageResourceResult.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_page.php\'][\'addEnableColumns\']' => [
+        'restFiles' => [
+            'Breaking-102793-PageRepository-enableFieldsHookRemoved.rst',
+            'Feature-102793-PSR-14EventForModifyingDefaultConstraintsInPageRepository.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'t3lib/class.t3lib_page.php\'][\'getPage\']' => [
+        'restFiles' => [
+            'Breaking-102806-HooksInPageRepositoryRemoved.rst',
+            'Deprecation-102806-InterfacesForPageRepositoryHooks.rst',
+            'Feature-102806-BeforePageIsRetrievedEventInPageRepository.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\TYPO3\CMS\Core\Domain\PageRepository::class][\'init\']' => [
+        'restFiles' => [
+            'Breaking-102806-HooksInPageRepositoryRemoved.rst',
+            'Deprecation-102806-InterfacesForPageRepositoryHooks.rst',
+            'Feature-102806-BeforePageIsRetrievedEventInPageRepository.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content_content.php\'][\'modifyDBRow\']' => [
+        'restFiles' => [
+            'Breaking-99323-RemovedHookForModifyingRecordsAfterFetchingContent.rst',
+            'Feature-99323-AddModifyRecordsAfterFetchingContentEvent.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'stdWrap\']' => [
+        'restFiles' => [
+            'Breaking-102745-RemovedContentObjectStdWrapHook.rst',
+            'Feature-102745-PSR-14EventsForModifyingContentObjectStdWrapFunctionality.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_content.php\'][\'stdWrap_cacheStore\']' => [
+        'restFiles' => [
+            'Breaking-102849-RemovedContentObjectStdWrapCacheStoreHook.rst',
+            'Feature-102849-PSR-14EventForManipulatingStoreCacheFunctionalityOfStdWrap.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'Link\'][\'resolveByStringRepresentation\']' => [
+        'restFiles' => [
+            'Breaking-102855-RemovedLinkServiceResolveByStringRepresentationHook.rst',
+            'Feature-102855-PSR-14EventForModifyingResolvedLinkResultData.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'metaphone\']' => [
+        'restFiles' => [
+            'Breaking-102900-MetaphoneSearchRemovedFromIndexed_search.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'initialize_postProc\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'getResultRows\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'getDisplayResults\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'getDisplayResults_postProc\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'getSearchWords\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'getResultRows_SQLpointer\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'EXTCONF\'][\'indexed_search\'][\'pi1_hooks\'][\'execFinalQuery_idList\']' => [
+        'restFiles' => [
+            'Breaking-102937-Pi1_hooksHookRemovedFromIndexedSearch.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_gifbuilder.php\'][\'gifbuilder-ConfPreProcess\']' => [
+        'restFiles' => [
+            'Breaking-102931-GifBuilderHookRemoved.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'configArrayPostProc\']' => [
+        'restFiles' => [
+            'Breaking-102932-RemovedTypoScriptFrontendControllerHooks.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'pageLoadedFromCache\']' => [
+        'restFiles' => [
+            'Breaking-102932-RemovedTypoScriptFrontendControllerHooks.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'createHashBase\']' => [
+        'restFiles' => [
+            'Breaking-102932-RemovedTypoScriptFrontendControllerHooks.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'FE\'][\'addRootLineFields\']' => [
+        'restFiles' => [
+            'Deprecation-103752-ObsoleteGLOBALSTYPO3_CONF_VARSFEaddRootLineFields.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList\'][\'customizeCsvHeader\']' => [
+        'restFiles' => [
+            'Deprecation-102337-DeprecateHooksForRecordDownload.rst',
+            'Feature-102337-IntroducePSR14EventModifyRecordListDownloadData.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList\'][\'customizeCsvRow\']' => [
+        'restFiles' => [
+            'Deprecation-102337-DeprecateHooksForRecordDownload.rst',
+            'Feature-102337-IntroducePSR14EventModifyRecordListDownloadData.rst',
         ],
     ],
 ];

@@ -1339,56 +1339,102 @@ return [
     'TYPO3\CMS\Core\Domain\Repository\PageRepository->where_hid_del' => [
         'restFiles' => [
             'Deprecation-99588-PublicPropertiesInPageRepository.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Domain\Repository\PageRepository->where_groupAccess' => [
         'restFiles' => [
             'Deprecation-99588-PublicPropertiesInPageRepository.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->lastLogin_column' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->formfield_uname' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->formfield_uident' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->formfield_status' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->loginSessionStarted' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Core\Authentication\AbstractUserAuthentication->dontSetCookie' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication->formfield_permanent' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication->is_permanent' => [
         'restFiles' => [
             'Deprecation-100173-VariousMethodsAndPropertiesInUserAuthenticationClassesNowInternal.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->type' => [
         'restFiles' => [
             'Deprecation-100405-PropertyTypoScriptFrontendController-type.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->charRangeMap' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->combinedFileNames' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->combinedTextStrings' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->data' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->defaultWorkArea' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->objBB' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->XY' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
         ],
     ],
 ];

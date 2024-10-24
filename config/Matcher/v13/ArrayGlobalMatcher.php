@@ -61,6 +61,7 @@ return [
     '$GLOBALS[\'TCA_DESCR\']' => [
         'restFiles' => [
             'Breaking-97312-RemoveContextSensitiveHelp.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'PAGES_TYPES\']' => [
@@ -68,11 +69,18 @@ return [
             'Breaking-98487-GLOBALSPAGES_TYPESRemoved.rst',
             'Deprecation-98487-ExtensionManagementUtilityallowTableOnStandardPages.rst',
             'Feature-98487-TCAOptionCtrlsecurityignorePageTypeRestriction.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     '$GLOBALS[\'TBE_STYLES\']' => [
         'restFiles' => [
             'Deprecation-100232-TBE_STYLESSkinningFunctionality.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    '$GLOBALS[\'TSFE\']' => [
+        'restFiles' => [
+            'Deprecation-105230-TypoScriptFrontendControllerAndGLOBALSTSFE.rst',
         ],
     ],
 ];

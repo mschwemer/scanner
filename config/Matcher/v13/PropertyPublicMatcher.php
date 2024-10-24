@@ -941,66 +941,224 @@ return [
     'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->lastTypoLinkUrl' => [
         'restFiles' => [
             'Deprecation-97549-ContentObjectRenderer-lastTypoLinkProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->lastTypoLinkTarget' => [
         'restFiles' => [
             'Deprecation-97549-ContentObjectRenderer-lastTypoLinkProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->lastTypoLinkLD' => [
         'restFiles' => [
             'Deprecation-97549-ContentObjectRenderer-lastTypoLinkProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->spamProtectEmailAddresses' => [
         'restFiles' => [
             'Deprecation-97866-VariousPublicTSFEProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->intTarget' => [
         'restFiles' => [
             'Deprecation-97866-VariousPublicTSFEProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->extTarget' => [
         'restFiles' => [
             'Deprecation-97866-VariousPublicTSFEProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->fileTarget' => [
         'restFiles' => [
             'Deprecation-97866-VariousPublicTSFEProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->baseUrl' => [
         'restFiles' => [
             'Deprecation-97866-VariousPublicTSFEProperties.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->xhtmlDoctype' => [
         'restFiles' => [
             'Deprecation-99416-VariousDoctypeRelatedPropertiesAndMethods.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->xhtmlVersion' => [
         'restFiles' => [
             'Deprecation-99416-VariousDoctypeRelatedPropertiesAndMethods.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->thisScript' => [
         'restFiles' => [
             'Deprecation-100454-LegacyTreeImplementations.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
     'TYPO3\CMS\Backend\Tree\View\AbstractTreeView->BE_USER' => [
         'restFiles' => [
             'Deprecation-100454-LegacyTreeImplementations.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
-    'TYPO3\CMS\Core\Localization->debugKey' => [
+    'TYPO3\CMS\Core\Localization\LanguageService->debugKey' => [
         'restFiles' => [
             'Deprecation-100657-TYPO3_CONF_VARSBElanguageDebug.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\DataHandling\DataHandler->checkStoredRecords' => [
+        'restFiles' => [
+            'Deprecation-101793-DataHandlerCheckStoredRecordsProperties.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\DataHandling\DataHandler->checkStoredRecords_loose' => [
+        'restFiles' => [
+            'Deprecation-101793-DataHandlerCheckStoredRecordsProperties.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->dontCompress' => [
+        'restFiles' => [
+            'Breaking-101941-VariousGFX-relatedLegacyOptionsRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->colMap' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->h' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->map' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->saveAlphaLayer' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->setup' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->truecolorColors' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->w' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Imaging\GraphicalFunctions->workArea' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->charRangeMap' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Imaging\GifBuilder->myClassName' => [
+        'restFiles' => [
+            'Breaking-101955-RemovedPublicMethodsRelatedToImageGeneration.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools->reNumberIndexesOfSectionData' => [
+        'restFiles' => [
+            'Breaking-102229-RemovedFlexFormTools-traverseFlexFormXMLData.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools->flexArray2Xml_options' => [
+        'restFiles' => [
+            'Breaking-102229-RemovedFlexFormTools-traverseFlexFormXMLData.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools->callBackObj' => [
+        'restFiles' => [
+            'Breaking-102229-RemovedFlexFormTools-traverseFlexFormXMLData.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools->cleanFlexFormXML' => [
+        'restFiles' => [
+            'Breaking-102229-RemovedFlexFormTools-traverseFlexFormXMLData.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->applicationData' => [
+        'restFiles' => [
+            'Breaking-102600-TSFE-applicationDataRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->fe_user' => [
+        'restFiles' => [
+            'Breaking-102605-TSFE-fe_userRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->additionalHeaderData' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->additionalFooterData' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->register' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->registerStack' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->recordRegister' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->currentRecord' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->content' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->lastImgResourceInfo' => [
+        'restFiles' => [
+            'Breaking-102621-MostTSFEMembersMarkedInternalOrRead-only.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Security\ContentSecurityPolicy\ConsumableNonce->b64' => [
+        'restFiles' => [
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\DiffUtility->stripTags' => [
+        'restFiles' => [
+            'Deprecation-104325-DiffUtility-makeDiffDisplay.rst',
         ],
     ],
 ];

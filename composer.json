@@ -24,8 +24,8 @@
         "vendor-dir": ".Build/vendor"
     },
     "require": {
-        "nikic/php-parser": "^4.0",
-        "symfony/finder": "^3.3 || ^4.1"
+        "nikic/php-parser": "^5.4",
+        "symfony/finder": "^7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8"

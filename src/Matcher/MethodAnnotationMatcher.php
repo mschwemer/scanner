@@ -1,7 +1,6 @@
 <?php
-declare(strict_types=1);
 
-namespace TYPO3\CMS\Scanner\Matcher;
+declare(strict_types=1);
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,12 +15,15 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 
 /**
  * Find usages of method annotations
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class MethodAnnotationMatcher extends AbstractCoreMatcher
 {
@@ -39,10 +41,8 @@ class MethodAnnotationMatcher extends AbstractCoreMatcher
     /**
      * Called by PhpParser.
      * Test for method annotations (strong match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if ($node instanceof ClassMethod
             && ($docComment = $node->getDocComment()) instanceof Doc
@@ -52,9 +52,8 @@ class MethodAnnotationMatcher extends AbstractCoreMatcher
             $isPossibleMatch = false;
             $match = [
                 'restFiles' => [],
-                'subject' => $node->name,
                 'line' => $node->getAttribute('startLine'),
-                'indicator' => static::INDICATOR_STRONG,
+                'indicator' => 'strong',
             ];
 
             $matches = [];
@@ -83,5 +82,6 @@ class MethodAnnotationMatcher extends AbstractCoreMatcher
                 $this->matches[] = $match;
             }
         }
+        return null;
     }
 }

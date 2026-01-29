@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
@@ -23,6 +25,7 @@ use PhpParser\Node\Name\FullyQualified;
  * Find usages of class constants.
  *
  * Test for "Class\Name::THE_CONSTANT", matches are considered "strong"
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class ClassConstantMatcher extends AbstractCoreMatcher
 {
@@ -39,25 +42,23 @@ class ClassConstantMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof ClassConstFetch
             && $node->class instanceof FullyQualified
-            && in_array($node->class->toString() . '::' . $node->name, array_keys($this->matcherDefinitions), true)
+            && array_key_exists($node->class->toString() . '::' . $node->name, $this->matcherDefinitions)
         ) {
             // No weak test implemented - combination class::const name tested
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$node->class->toString() . '::' . $node->name]['restFiles'],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->class->toString() . '::' . $node->name,
                 'message' => 'Call to class constant "' . $node->class->toString() . '::' . $node->name . '"',
-                'indicator' => static::INDICATOR_STRONG,
+                'indicator' => 'strong',
             ];
         }
+        return null;
     }
 }

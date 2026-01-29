@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 
@@ -22,6 +24,7 @@ use PhpParser\Node\Expr\ConstFetch;
  * Find usages of class constants.
  *
  * Test for "THE_CONSTANT", matches are considered "strong"
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class ConstantMatcher extends AbstractCoreMatcher
 {
@@ -38,24 +41,22 @@ class ConstantMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof ConstFetch
-            && in_array($node->name->toString(), array_keys($this->matcherDefinitions), true)
+            && array_key_exists($node->name->toString(), $this->matcherDefinitions)
         ) {
             // Access to constants is detected as strong match
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$node->name->toString()]['restFiles'],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->name->toString(),
                 'message' => 'Call to global constant "' . $node->name->toString() . '"',
-                'indicator' => static::INDICATOR_STRONG,
+                'indicator' => 'strong',
             ];
         }
+        return null;
     }
 }

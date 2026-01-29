@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -22,9 +24,10 @@ use PhpParser\Node\Expr\MethodCall;
 /**
  * Match method usages where arguments "in between" are unused but not given as "null":
  *
- * public function foo($arg1, $unsused1 = null, $unused2 = null, $arg4)
+ * public function foo($arg1, $unused1 = null, $unused2 = null, $arg4)
  * but called with:
  * ->foo('arg1', 'notNull', null, 'arg4');
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
 {
@@ -42,22 +45,20 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         // Match method call (not static)
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof MethodCall
             && isset($node->name->name)
-            && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+            && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {
             $match = [
                 'restFiles' => [],
                 'line' => $node->getAttribute('startLine'),
-                'indicator' => static::INDICATOR_WEAK,
+                'indicator' => 'weak',
             ];
 
             $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($node->args);
@@ -75,7 +76,6 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
                             || $node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0] !== null)
                     ) {
                         $isPossibleMatch = true;
-                        $match['subject'] = $node->name->name;
                         $match['message'] = 'Call to method "' . $node->name->name . '()" with'
                             . ' argument ' . $droppedArgumentNumber . ' not given as null.';
                         $match['restFiles'] = array_unique(array_merge($match['restFiles'], $candidate['restFiles']));
@@ -86,5 +86,6 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
                 $this->matches[] = $match;
             }
         }
+        return null;
     }
 }

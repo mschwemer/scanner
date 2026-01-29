@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
@@ -78,7 +80,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                                 'subject' => $node->name->name,
                                 'message' => 'Call to method "' . $node->name->name . '()" with'
                                     . ' argument ' . $droppedArgumentNumber . ' not given as null.',
-                                'indicator' => static::INDICATOR_STRONG,
+                                'indicator' => 'strong',
                             ];
                         }
                     }
@@ -90,7 +92,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                 $match = [
                     'restFiles' => [],
                     'line' => $node->getAttribute('startLine'),
-                    'indicator' => static::INDICATOR_WEAK,
+                    'indicator' => 'weak',
                 ];
 
                 $numberOfArguments = count($node->args);

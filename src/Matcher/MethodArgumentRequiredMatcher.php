@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,16 +15,18 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use TYPO3\CMS\Scanner\CodeScannerInterface;
 
 /**
  * Find usages of method calls which changed signature and added required arguments.
  * This is a "weak" match since we're just testing for method name
  * but not connected class.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
-class MethodArgumentRequiredMatcher extends AbstractCoreMatcher implements CodeScannerInterface
+class MethodArgumentRequiredMatcher extends AbstractCoreMatcher
 {
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
@@ -41,22 +43,20 @@ class MethodArgumentRequiredMatcher extends AbstractCoreMatcher implements CodeS
     /**
      * Called by PhpParser.
      * Test for "->deprecated()" (weak match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         // Match method call (not static)
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof MethodCall
             && isset($node->name->name)
-            && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+            && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {
             $match = [
                 'restFiles' => [],
                 'line' => $node->getAttribute('startLine'),
-                'indicator' => static::INDICATOR_WEAK,
+                'indicator' => 'weak',
             ];
 
             $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($node->args);
@@ -71,7 +71,6 @@ class MethodArgumentRequiredMatcher extends AbstractCoreMatcher implements CodeS
                     && $numberOfArguments <= $candidate['maximumNumberOfArguments']
                 ) {
                     $isPossibleMatch = true;
-                    $match['subject'] = $node->name->name;
                     $match['message'] = 'Method ' . $node->name->name . '() needs at least ' . $candidate['numberOfMandatoryArguments'] . ' arguments.';
                     $match['restFiles'] = array_unique(array_merge($match['restFiles'], $candidate['restFiles']));
                 }
@@ -80,5 +79,6 @@ class MethodArgumentRequiredMatcher extends AbstractCoreMatcher implements CodeS
                 $this->matches[] = $match;
             }
         }
+        return null;
     }
 }

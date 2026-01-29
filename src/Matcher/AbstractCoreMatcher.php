@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeVisitorAbstract;
@@ -25,13 +27,11 @@ use TYPO3\CMS\Scanner\CodeScannerInterface;
  * It brings a set of protected methods to help single matcher classes doing common stuff.
  * This abstract extends the nikic/php-parser NodeVisitorAbstract which implements the main
  * parser interface, and it implements the TYPO3 specific CodeScannerInterface to retrieve matches.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeScannerInterface
 {
     const NODE_RESOLVED_AS = 'nodeResolvedAs';
-    const INDICATOR_IMPOSSIBLE = 'impossible';
-    const INDICATOR_STRONG = 'strong';
-    const INDICATOR_WEAK = 'weak';
 
     /**
      * Incoming main configuration array.
@@ -70,8 +70,6 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
 
     /**
      * Return list of matches after processing
-     *
-     * @return array
      */
     public function getMatches(): array
     {
@@ -97,7 +95,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
         }
     }
 
-    protected function validateMatcherDefinitionKeys(string $key, array $matcherDefinition, array $requiredArrayKeys = [])
+    protected function validateMatcherDefinitionKeys(string $key, array $matcherDefinition, array $requiredArrayKeys = []): void
     {
         // Each config must point to at least one .rst file
         if (empty($matcherDefinition['restFiles'])) {
@@ -164,7 +162,6 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
      * If so, it kinda defeats any "argument count" approach.
      *
      * @param array $arguments List of arguments
-     * @return bool
      */
     protected function isArgumentUnpackingUsed(array $arguments = []): bool
     {
@@ -179,9 +176,6 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     /**
      * Returns true if a comment before a statement is
      * marked as "@extensionScannerIgnoreLine"
-     *
-     * @param Node $node
-     * @return bool
      */
     protected function isLineIgnored(Node $node): bool
     {
@@ -189,6 +183,11 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
         $startLineOfNode = $node->getAttribute('startLine');
         if ($startLineOfNode === $this->currentCodeLine) {
             return $this->isCurrentLineIgnored;
+        }
+        if ($this->isCurrentLineIgnored) {
+            // "ignoreMode" is still active, but we're past the line
+            // where it was enabled. Reset this beauty.
+            $this->isCurrentLineIgnored = false;
         }
 
         $currentLineIsIgnored = false;
@@ -198,7 +197,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
             $comments = $node->getAttribute('comments');
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
-                    if (strstr($comment->getText(), '@extensionScannerIgnoreLine') !== false) {
+                    if (str_contains($comment->getText(), '@extensionScannerIgnoreLine')) {
                         $this->isCurrentLineIgnored = true;
                         $currentLineIsIgnored = true;
                         break;
@@ -212,9 +211,6 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     /**
      * Return true if the node is ignored since the entire file is ignored.
      * Sets ignore status if a class node is given having the annotation.
-     *
-     * @param Node $node
-     * @return bool
      */
     protected function isFileIgnored(Node $node): bool
     {
@@ -226,7 +222,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
             $comments = $node->getAttribute('comments');
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
-                    if (strstr($comment->getText(), '@extensionScannerIgnoreFile') !== false) {
+                    if (str_contains($comment->getText(), '@extensionScannerIgnoreFile')) {
                         $this->isFullFileIgnored = true;
                         $currentFileIsIgnored = true;
                         break;

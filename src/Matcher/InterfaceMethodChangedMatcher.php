@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,9 +15,11 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 
 /**
@@ -27,6 +29,7 @@ use PhpParser\Node\Stmt\ClassMethod;
  * The scanner only looks for:
  * - Class method names not having specified number of arguments
  * - Method calls with given method name not having this number of arguments
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
 {
@@ -46,22 +49,18 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
      * Called by PhpParser.
      * Test for "public function like($arg1, $arg2, $arg3) {}" (weak match)
      * Test for "->like($arg1, $arg2, $arg3); (weak match)
-     *
-     * @param Node $node
-     * @return null|void
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
-            return;
+            return null;
         }
 
         // Match method name of a class, must be public, wouldn't make sense as interface if protected/private
         if ($node instanceof ClassMethod
-            && isset($node->name->name)
-            && in_array($node->name->name, array_keys($this->matcherDefinitions), true)
-            && $node->flags & Class_::MODIFIER_PUBLIC // public
-            && ($node->flags & Class_::MODIFIER_STATIC) !== Class_::MODIFIER_STATIC // not static
+            && array_key_exists($node->name->name, $this->matcherDefinitions)
+            && $node->flags & Modifiers::PUBLIC // public
+            && ($node->flags & Modifiers::STATIC) !== Modifiers::STATIC // not static
         ) {
             $methodName = $node->name->name;
             $numberOfUsedArguments = 0;
@@ -73,17 +72,15 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$methodName]['restFiles'],
                     'line' => $node->getAttribute('startLine'),
-                    'subject' => $methodName,
                     'message' => 'Implementation of dropped interface argument for method "' . $methodName . '()"',
-                    'indicator' => static::INDICATOR_WEAK,
+                    'indicator' => 'weak',
                 ];
             }
         }
 
         // Match method call (not static) with number of arguments
         if ($node instanceof MethodCall
-            && isset($node->name->name)
-            && in_array($node->name->name, array_keys($this->matcherDefinitions), true)
+            && isset($node->name->name) && array_key_exists($node->name->name, $this->matcherDefinitions)
         ) {
             $methodName = $node->name->name;
             $numberOfUsedArguments = 0;
@@ -96,11 +93,11 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$methodName]['restFiles'],
                     'line' => $node->getAttribute('startLine'),
-                    'subject' => $methodName,
                     'message' => 'Call to interface method "' . $methodName . '()"',
-                    'indicator' => static::INDICATOR_WEAK,
+                    'indicator' => 'weak',
                 ];
             }
         }
+        return null;
     }
 }

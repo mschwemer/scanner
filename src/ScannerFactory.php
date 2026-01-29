@@ -2,6 +2,7 @@
 namespace TYPO3\CMS\Scanner;
 
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 use Symfony\Component\Finder\Finder;
 use TYPO3\CMS\Scanner\Matcher\MatcherFactory;
 use TYPO3\CMS\Scanner\Visitor\TraverserFactory;
@@ -31,11 +32,10 @@ class ScannerFactory
     }
 
     public function createFor(
-        int $kind = ParserFactory::PREFER_PHP7
     ): Scanner
     {
         $finder = new Finder();
-        $parser = $this->parserFactory->create($kind);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));;
 
         return new Scanner(
             $finder,

@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -40,10 +42,8 @@ class ArrayGlobalMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
@@ -56,10 +56,10 @@ class ArrayGlobalMatcher extends AbstractCoreMatcher
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions['$GLOBALS[\'' . $node->dim->value . '\']']['restFiles'],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->dim->value,
-                'message' => 'Access to global array "' . $node->dim->value . '"',
-                'indicator' => static::INDICATOR_STRONG,
+                'message' => 'Access to array global array "' . $node->dim->value . '"',
+                'indicator' => 'strong',
             ];
         }
+        return null;
     }
 }

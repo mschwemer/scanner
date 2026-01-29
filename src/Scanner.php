@@ -147,7 +147,7 @@ class Scanner
     {
         $match = new TheMatch(
             get_class($error),
-            AbstractCoreMatcher::INDICATOR_IMPOSSIBLE,
+            'impossible',
             $file,
             $error->getMessage(),
             $error->getStartLine(),

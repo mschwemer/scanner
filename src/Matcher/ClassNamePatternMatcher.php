@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
@@ -60,7 +62,7 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
             'line' => $node->getAttribute('startLine'),
             'subject' => $fullyQualifiedClassName,
             'message' => 'Usage of class "' . $fullyQualifiedClassName . '"',
-            'indicator' => static::INDICATOR_STRONG,
+            'indicator' => 'strong',
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
@@ -22,6 +24,7 @@ use PhpParser\Node\Name\FullyQualified;
 /**
  * Find usages of global function calls which were removed / deprecated.
  * This is a strong match.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class FunctionCallMatcher extends AbstractCoreMatcher
 {
@@ -39,17 +42,15 @@ class FunctionCallMatcher extends AbstractCoreMatcher
     /**
      * Called by PhpParser.
      * Test for "removedFunction()" (strong match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         // Match method call (not static)
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof FuncCall
             && $node->name instanceof FullyQualified
-            && in_array($node->name->toString(), array_keys($this->matcherDefinitions), true)
+            && array_key_exists($node->name->toString(), $this->matcherDefinitions)
         ) {
             $functionName = $node->name->toString();
             $matchDefinition = $this->matcherDefinitions[$functionName];
@@ -64,11 +65,11 @@ class FunctionCallMatcher extends AbstractCoreMatcher
                 $this->matches[] = [
                     'restFiles' => $matchDefinition['restFiles'],
                     'line' => $node->getAttribute('startLine'),
-                    'subject' => $functionName,
                     'message' => 'Call to function "' . $functionName . '"',
-                    'indicator' => static::INDICATOR_STRONG,
+                    'indicator' => 'strong',
                 ];
             }
         }
+        return null;
     }
 }

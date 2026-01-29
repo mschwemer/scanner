@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -40,10 +42,8 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
@@ -54,7 +54,6 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
             $match = [
                 'restFiles' => [],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->dim->value,
                 'message' => 'Access to array key "' . $node->dim->value . '"',
                 'indicator' => 'weak',
             ];
@@ -64,6 +63,7 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
             }
             $this->matches[] = $match;
         }
+        return null;
     }
 
     /**

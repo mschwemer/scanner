@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
-use TYPO3\CMS\Install\ExtensionScanner\Php\Matcher\AbstractCoreMatcher;
 
 /**
  * Find usage of special "magic" strings like TYPO3_MODE, so that

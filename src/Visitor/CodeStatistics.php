@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Visitor;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Visitor;
+
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeVisitorAbstract;
@@ -22,13 +24,14 @@ use PhpParser\NodeVisitorAbstract;
 /**
  * A visitor doing some counting.
  * It sums the number of ignored lines and lines of effective code.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class CodeStatistics extends NodeVisitorAbstract
 {
     /**
-     * @var int True if a class statement has @extensionScannerIgnoreFile
+     * @var bool True if a class statement has @extensionScannerIgnoreFile
      */
-    protected $isCurrentFileIgnored = 0;
+    protected $isCurrentFileIgnored = false;
 
     /**
      * @var int Counts @extensionScannerIgnoreLine statements
@@ -47,22 +50,20 @@ class CodeStatistics extends NodeVisitorAbstract
 
     /**
      * Called by PhpParser during traversal.
-     *
-     * @param Node $node Incoming node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         $startLineOfNode = $node->getAttribute('startLine');
         if ($startLineOfNode !== $this->currentLineNumber) {
             $this->currentLineNumber = $startLineOfNode;
-            $this->numberOfEffectiveCodeLines ++;
+            $this->numberOfEffectiveCodeLines++;
 
             // Class statements may contain the @extensionScannerIgnoreFile statements
             if ($node instanceof Class_) {
                 $comments = $node->getAttribute('comments');
                 if (!empty($comments)) {
                     foreach ($comments as $comment) {
-                        if (strstr($comment->getText(), '@extensionScannerIgnoreFile') !== false) {
+                        if (str_contains($comment->getText(), '@extensionScannerIgnoreFile')) {
                             $this->isCurrentFileIgnored = true;
                             break;
                         }
@@ -74,20 +75,21 @@ class CodeStatistics extends NodeVisitorAbstract
             $comments = $node->getAttribute('comments');
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
-                    if (strstr($comment->getText(), '@extensionScannerIgnoreLine') !== false) {
-                        $this->numberOfIgnoreLines ++;
+                    if (str_contains($comment->getText(), '@extensionScannerIgnoreLine')) {
+                        $this->numberOfIgnoreLines++;
                         break;
                     }
                 }
             }
         }
+        return null;
     }
 
     /**
      * True if a @extensionScannerIgnoreFile has been found.
      * Called externally *after* traversing
      *
-     * @return int
+     * @return bool
      */
     public function isFileIgnored()
     {

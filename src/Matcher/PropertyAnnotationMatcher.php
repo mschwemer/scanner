@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,13 +15,16 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
 
 /**
  * Find usages of property annotations
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class PropertyAnnotationMatcher extends AbstractCoreMatcher
 {
@@ -39,23 +42,21 @@ class PropertyAnnotationMatcher extends AbstractCoreMatcher
     /**
      * Called by PhpParser.
      * Test for property annotations (strong match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if ($node instanceof Property
-            && ($property = reset($node->props)) instanceof PropertyProperty
+            && ($property = reset($node->props)) instanceof PropertyItem
             && ($docComment = $node->getDocComment()) instanceof Doc
             && !$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
         ) {
-            /** @var PropertyProperty $property */
+            /** @var PropertyItem $property */
             $isPossibleMatch = false;
             $match = [
                 'restFiles' => [],
                 'line' => $property->getAttribute('startLine'),
-                'indicator' => static::INDICATOR_STRONG,
+                'indicator' => 'strong',
             ];
 
             $matches = [];
@@ -84,5 +85,6 @@ class PropertyAnnotationMatcher extends AbstractCoreMatcher
                 $this->matches[] = $match;
             }
         }
+        return null;
     }
 }

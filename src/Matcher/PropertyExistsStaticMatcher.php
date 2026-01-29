@@ -1,7 +1,6 @@
 <?php
-declare(strict_types=1);
 
-namespace TYPO3\CMS\Scanner\Matcher;
+declare(strict_types=1);
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,12 +15,15 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 
 /**
  * Find usages of properties which have been deprecated or removed.
  * Useful if abstract classes remove properties.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class PropertyExistsStaticMatcher extends AbstractCoreMatcher
 {
@@ -38,27 +40,25 @@ class PropertyExistsStaticMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof Property
             && $node->isStatic()
             && !$node->isPrivate()
-            && in_array($node->props[0]->name->name, array_keys($this->matcherDefinitions), true)
+            && array_key_exists($node->props[0]->name->name, $this->matcherDefinitions)
         ) {
             $propertyName = $node->props[0]->name->name;
             $match = [
                 'restFiles' => $this->matcherDefinitions[$propertyName]['restFiles'],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->props[0]->name->name,
                 'message' => 'Use of property "' . $node->props[0]->name->name . '"',
-                'indicator' => static::INDICATOR_WEAK,
+                'indicator' => 'weak',
             ];
             $this->matches[] = $match;
         }
+        return null;
     }
 }

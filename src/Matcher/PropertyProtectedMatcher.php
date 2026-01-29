@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Identifier;
@@ -22,6 +24,7 @@ use PhpParser\Node\Identifier;
 /**
  * Find usages of properties which have been made protected and are
  * not called in $this context.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class PropertyProtectedMatcher extends AbstractCoreMatcher
 {
@@ -39,26 +42,21 @@ class PropertyProtectedMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof PropertyFetch
             && $node->name instanceof Identifier
-            && isset($node->var->name)
-            && $node->var->name !== 'this'
-            && isset($node->name->name)
-            && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+            && ($node->var->name ?? '') !== 'this'
+            && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {
             $match = [
                 'restFiles' => [],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->name->name,
                 'message' => 'Fetch of property "' . $node->name->name . '"',
-                'indicator' => static::INDICATOR_WEAK,
+                'indicator' => 'weak',
             ];
 
             foreach ($this->flatMatcherDefinitions[$node->name->name]['candidates'] as $candidate) {
@@ -66,5 +64,6 @@ class PropertyProtectedMatcher extends AbstractCoreMatcher
             }
             $this->matches[] = $match;
         }
+        return null;
     }
 }

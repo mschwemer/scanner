@@ -19,7 +19,6 @@ namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use TYPO3\CMS\Install\ExtensionScanner\Php\Matcher\AbstractCoreMatcher;
 
 /**
  * Find usages of method calls which were removed / deprecated.

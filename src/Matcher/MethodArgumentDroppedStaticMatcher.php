@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,17 +15,19 @@ namespace TYPO3\CMS\Scanner\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace TYPO3\CMS\Scanner\Matcher;
+
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
-use TYPO3\CMS\Scanner\CodeScannerInterface;
 
 /**
  * Find usages of static method calls which were removed / deprecated.
  * This is a "strong" match if class name is given and "weak" if not.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
-class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher implements CodeScannerInterface
+class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher
 {
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
@@ -42,10 +44,8 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher implements 
     /**
      * Called by PhpParser.
      * Test for "->deprecated()" (weak match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         // Match static method call
         if (!$this->isFileIgnored($node)
@@ -58,27 +58,25 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher implements 
                 // 'Foo\Bar::aMethod()' -> strong match
                 $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
                 if (!$isArgumentUnpackingUsed
-                    && in_array($fqdnClassWithMethod, array_keys($this->matcherDefinitions), true)
+                    && array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)
                     && count($node->args) > $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']
                 ) {
                     $this->matches[] = [
                         'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
                         'line' => $node->getAttribute('startLine'),
-                        'subject' => $node->name->name,
                         'message' => 'Method "' . $node->name->name . '()" supports only '
                             . $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']
                             . ' arguments.',
-                        'indicator' => static::INDICATOR_STRONG,
+                        'indicator' => 'strong',
                     ];
                 }
             } elseif ($node->class instanceof Variable
-                && isset($node->name->name)
-                && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+                && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
             ) {
                 $match = [
                     'restFiles' => [],
                     'line' => $node->getAttribute('startLine'),
-                    'indicator' => static::INDICATOR_WEAK,
+                    'indicator' => 'weak',
                 ];
 
                 $numberOfArguments = count($node->args);
@@ -90,7 +88,6 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher implements 
                         && $numberOfArguments > $candidate['maximumNumberOfArguments']
                     ) {
                         $isPossibleMatch = true;
-                        $match['subject'] = $node->name->name;
                         $match['message'] = 'Method "' . $node->name->name . '()" supports only '
                             . $candidate['maximumNumberOfArguments'] . ' arguments.';
                         $match['restFiles'] = array_unique(array_merge($match['restFiles'], $candidate['restFiles']));
@@ -101,5 +98,6 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher implements 
                 }
             }
         }
+        return null;
     }
 }

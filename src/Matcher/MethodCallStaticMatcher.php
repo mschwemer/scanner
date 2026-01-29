@@ -1,6 +1,6 @@
 <?php
+
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -14,6 +14,8 @@ namespace TYPO3\CMS\Scanner\Matcher;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace TYPO3\CMS\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
@@ -30,6 +32,7 @@ use PhpParser\Node\Name\FullyQualified;
  * recognized: If calling a static method as "$foo::aMethod($arg1), but the
  * method needs two arguments, this is *not* considered a match. This would
  * have raised a fatal PHP error anyway and this is nothing we test here.
+ * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
  */
 class MethodCallStaticMatcher extends AbstractCoreMatcher
 {
@@ -49,10 +52,8 @@ class MethodCallStaticMatcher extends AbstractCoreMatcher
      * Called by PhpParser.
      * Test for "foo\bar::deprecated()" (strong match)
      * Test for "::deprecated()" (weak match)
-     *
-     * @param Node $node
      */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): null
     {
         // Static call, not method call
         if (!$this->isFileIgnored($node)
@@ -62,25 +63,22 @@ class MethodCallStaticMatcher extends AbstractCoreMatcher
             if ($node->class instanceof FullyQualified) {
                 // 'Foo\Bar::deprecated()' -> strong match
                 $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
-                if (in_array($fqdnClassWithMethod, array_keys($this->matcherDefinitions), true)) {
+                if (array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)) {
                     $this->matches[] = [
                         'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
                         'line' => $node->getAttribute('startLine'),
-                        'subject' => $fqdnClassWithMethod,
                         'message' => 'Use of static class method call "' . $fqdnClassWithMethod . '()"',
-                        'indicator' => static::INDICATOR_STRONG,
+                        'indicator' => 'strong',
                     ];
                 }
             } elseif ($node->class instanceof Variable
-                && isset($node->name->name)
-                && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+                && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
             ) {
                 $match = [
                     'restFiles' => [],
                     'line' => $node->getAttribute('startLine'),
-                    'subject' => $node->name->name,
                     'message' => 'Use of static class method call "' . $node->name->name . '()"',
-                    'indicator' => static::INDICATOR_WEAK,
+                    'indicator' => 'weak',
                 ];
 
                 $numberOfArguments = count($node->args);
@@ -103,5 +101,6 @@ class MethodCallStaticMatcher extends AbstractCoreMatcher
                 }
             }
         }
+        return null;
     }
 }

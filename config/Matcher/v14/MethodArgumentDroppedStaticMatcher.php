@@ -1,103 +1,106 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
-namespace TYPO3\CMS\Install\ExtensionScanner\Php\Matcher;
-
-use PhpParser\Node;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
-
-/**
- * Find usages of static method calls which were removed / deprecated.
- * This is a "strong" match if class name is given and "weak" if not.
- * @internal This class is only meant to be used within EXT:install and is not part of the TYPO3 Core API.
- */
-class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher
-{
-    /**
-     * Prepare $this->flatMatcherDefinitions once and validate config
-     *
-     * @param array $matcherDefinitions Incoming main configuration
-     */
-    public function __construct(array $matcherDefinitions)
-    {
-        $this->matcherDefinitions = $matcherDefinitions;
-        $this->validateMatcherDefinitions(['maximumNumberOfArguments']);
-        $this->initializeFlatMatcherDefinitions();
-    }
-
-    /**
-     * Called by PhpParser.
-     * Test for "->deprecated()" (weak match)
-     */
-    public function enterNode(Node $node): null
-    {
-        // Match static method call
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof StaticCall
-        ) {
-            $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($node->args);
-
-            if ($node->class instanceof FullyQualified) {
-                // 'Foo\Bar::aMethod()' -> strong match
-                $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
-                if (!$isArgumentUnpackingUsed
-                    && array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)
-                    && count($node->args) > $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']
-                ) {
-                    $this->matches[] = [
-                        'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
-                        'line' => $node->getAttribute('startLine'),
-                        'message' => 'Method "' . $node->name->name . '()" supports only '
-                            . $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']
-                            . ' arguments.',
-                        'indicator' => 'strong',
-                    ];
-                }
-            } elseif ($node->class instanceof Variable
-                && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
-            ) {
-                $match = [
-                    'restFiles' => [],
-                    'line' => $node->getAttribute('startLine'),
-                    'indicator' => 'weak',
-                ];
-
-                $numberOfArguments = count($node->args);
-                $isPossibleMatch = false;
-                foreach ($this->flatMatcherDefinitions[$node->name->name]['candidates'] as $candidate) {
-                    // A method call is considered a match if it is not called with argument unpacking
-                    // and number of used arguments is higher than maximumNumberOfArguments
-                    if (!$isArgumentUnpackingUsed
-                        && $numberOfArguments > $candidate['maximumNumberOfArguments']
-                    ) {
-                        $isPossibleMatch = true;
-                        $match['message'] = 'Method "' . $node->name->name . '()" supports only '
-                            . $candidate['maximumNumberOfArguments'] . ' arguments.';
-                        $match['restFiles'] = array_unique(array_merge($match['restFiles'], $candidate['restFiles']));
-                    }
-                }
-                if ($isPossibleMatch) {
-                    $this->matches[] = $match;
-                }
-            }
-        }
-        return null;
-    }
-}
+return [
+    'TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
+            'Deprecation-73516-VariousGeneralUtilityMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::intExplode' => [
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-99900-GeneralUtilityIntExplodeLimitParameter.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::wrapJS' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
+            'Deprecation-75621-GeneralUtilityMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Recycler\Utility\RecyclerUtility::getRecordPath' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
+            'Deprecation-75637-DeprecateOptionalParametersOfRecyclerUtilitygetRecordPath.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction' => [
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Breaking-74533-ThrowExceptionIfUserFunctionDoesNotExist.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getPagesTSconfig' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-54152-DeprecateArgumentsOfBackendUtilityGetPagesTSconfig.rst',
+            'Breaking-87193-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-82899-ExtensionManagementUtilityMethods.rst',
+            'Breaking-87193-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::explodeUrl2Array' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85801-GeneralUtilityexplodeUrl2Array-2ndMethodArgument.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty' => [
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-87332-AvoidRuntimeReflectionCallsInObjectAccess.rst',
+            'Breaking-91473-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Reflection\ObjectAccess::getPropertyInternal' => [
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-87332-AvoidRuntimeReflectionCallsInObjectAccess.rst',
+            'Breaking-91473-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty' => [
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-87332-AvoidRuntimeReflectionCallsInObjectAccess.rst',
+            'Breaking-91473-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::getUrl' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-90956-AlternativeFetchMethodsAndReportsForGeneralUtilitygetUrl.rst',
+            'Breaking-91473-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\ArrayUtility::arrayDiffAssocRecursive' => [
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-94137-SwitchBehaviorOfArrayUtilityarrayDiffAssocRecursive.rst',
+            'Breaking-96107-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\DebugUtility::debug' => [
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Breaking-98069-DebugConsoleRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate' => [
+        'maximumNumberOfArguments' => 4,
+        'restFiles' => [
+            'Deprecation-100721-LabelRelatedMethodsAndArguments.rst',
+            'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
+        ],
+    ],
+];

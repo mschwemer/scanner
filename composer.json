@@ -19,19 +19,23 @@
     ],
     "autoload": {
       "psr-4": {
-        "TYPO3\\CMS\\Scanner\\": "src/",
-        "TYPO3\\CMS\\Scanner\\Tests\\": "tests/"
+        "M12S\\Scanner\\": "src/",
+        "M12S\\Scanner\\Tests\\": "tests/"
       }
     },
     "config": {
         "bin-dir": ".Build/bin",
-        "vendor-dir": ".Build/vendor"
+        "vendor-dir": ".Build/vendor",
+        "platform": {
+            "php": "8.3.0"
+        }
     },
     "require": {
+        "php": "^8.3",
         "nikic/php-parser": "^5.4",
-        "symfony/finder": "^7.1"
+        "symfony/finder": "^7.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8"
+        "phpunit/phpunit": "^12.5"
     }
 }

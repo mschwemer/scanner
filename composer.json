@@ -4,14 +4,18 @@
     "type": "library",
     "license": "GPLv2",
     "authors": [
-        {
-            "name": "Christian Kuhn",
-            "email": "christian.kuhn@typo3.org"
-        },
-        {
-            "name": "Oliver Hader",
-            "email": "oliver.hader@typo3.org"
-        }
+      {
+        "name": "Christian Kuhn",
+        "email": "christian.kuhn@typo3.org"
+      },
+      {
+        "name": "Oliver Hader",
+        "email": "oliver.hader@typo3.org"
+      },
+      {
+        "name": "Marcus Schwemer",
+        "email": "marcus-dev@schwemer.de"
+      }
     ],
     "autoload": {
       "psr-4": {

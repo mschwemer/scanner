@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace TYPO3\CMS\Scanner\Visitor;
+namespace M12S\Scanner\Visitor;
 
 use PhpParser\NodeVisitor;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace TYPO3\CMS\Scanner;
+namespace M12S\Scanner;
 
 /*
  * This file is part of the TYPO3 CMS project.

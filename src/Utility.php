@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\CMS\Scanner;
+namespace M12S\Scanner;
 
 class Utility
 {

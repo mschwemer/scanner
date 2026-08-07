@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit;
+namespace M12S\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,49 +15,55 @@ namespace TYPO3\CMS\Scanner\Tests\Unit;
  * The TYPO3 project - inspiring people to share!
  */
 
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class GeneratorClassesResolverTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function visitorCreatesFullyQualifiedNameFromStringArgumentInMakeInstance()
     {
         $phpCode = <<<'EOC'
 <?php
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Does\\Not\\Exist');
 EOC;
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \TYPO3\CMS\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new \M12S\Scanner\Visitor\GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
 
-        $this->assertInstanceOf(FullyQualified::class, $statements[0]->expr->args[0]->value);
-        $this->assertEquals(['TYPO3', 'CMS', 'Does', 'Not', 'Exist'], $statements[0]->expr->args[0]->value->parts);
+        // The resolver rewrites the class-string argument into its class constant
+        // representation: 'TYPO3\CMS\Does\Not\Exist' -> \TYPO3\CMS\Does\Not\Exist::class
+        $argument = $statements[0]->expr->args[0]->value;
+        $this->assertInstanceOf(ClassConstFetch::class, $argument);
+        $this->assertInstanceOf(FullyQualified::class, $argument->class);
+        $this->assertEquals(['TYPO3', 'CMS', 'Does', 'Not', 'Exist'], $argument->class->getParts());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function visitorDoesNotTransformDynamicallyCreatesFullyQualifiedNameFromStringArgumentInMakeInstance()
     {
         $phpCode = <<<'EOC'
 <?php
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Does\\Not\\' . $foo);
 EOC;
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \TYPO3\CMS\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new \M12S\Scanner\Visitor\GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
+        // A runtime-concatenated argument cannot be resolved statically, so it must
+        // be left untouched rather than rewritten to a ::class constant.
+        $this->assertNotInstanceOf(ClassConstFetch::class, $statements[0]->expr->args[0]->value);
         $this->assertNotInstanceOf(FullyQualified::class, $statements[0]->expr->args[0]->value);
     }
 }

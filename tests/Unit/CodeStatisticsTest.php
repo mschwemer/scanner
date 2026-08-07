@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit;
+namespace M12S\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,23 +18,23 @@ namespace TYPO3\CMS\Scanner\Tests\Unit;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class CodeStatisticsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function enterNodeSumsStatistics()
     {
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/CodeStatisticsFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
         $traverser = new NodeTraverser();
-        $subject = new \TYPO3\CMS\Scanner\Visitor\CodeStatistics();
+        $subject = new \M12S\Scanner\Visitor\CodeStatistics();
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
 

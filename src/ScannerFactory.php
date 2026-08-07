@@ -1,11 +1,11 @@
 <?php
-namespace TYPO3\CMS\Scanner;
+namespace M12S\Scanner;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use Symfony\Component\Finder\Finder;
-use TYPO3\CMS\Scanner\Matcher\MatcherFactory;
-use TYPO3\CMS\Scanner\Visitor\TraverserFactory;
+use M12S\Scanner\Matcher\MatcherFactory;
+use M12S\Scanner\Visitor\TraverserFactory;
 
 class ScannerFactory
 {

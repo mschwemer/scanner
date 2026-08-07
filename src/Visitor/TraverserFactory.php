@@ -1,11 +1,11 @@
 <?php
-namespace TYPO3\CMS\Scanner\Visitor;
+namespace M12S\Scanner\Visitor;
 
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use TYPO3\CMS\Scanner\CodeScannerInterface;
-use TYPO3\CMS\Scanner\Domain\Model\MatcherBundleCollection;
-use TYPO3\CMS\Scanner\Matcher\MatcherFactory;
+use M12S\Scanner\CodeScannerInterface;
+use M12S\Scanner\Domain\Model\MatcherBundleCollection;
+use M12S\Scanner\Matcher\MatcherFactory;
 
 class TraverserFactory
 {

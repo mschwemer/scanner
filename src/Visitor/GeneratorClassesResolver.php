@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace TYPO3\CMS\Scanner\Visitor;
+namespace M12S\Scanner\Visitor;
 
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
@@ -26,7 +26,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
-use TYPO3\CMS\Scanner\Matcher\AbstractCoreMatcher;
+use M12S\Scanner\Matcher\AbstractCoreMatcher;
 
 /**
  * Create a fully qualified class name object from first argument of

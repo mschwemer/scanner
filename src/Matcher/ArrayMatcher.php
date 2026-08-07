@@ -14,7 +14,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace TYPO3\CMS\Scanner\Matcher;
+namespace M12S\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -137,7 +137,7 @@ class ArrayMatcher extends AbstractCoreMatcher
                 $value = $nodeValue->value;
                 break;
             case Node\Expr\ConstFetch::class:
-                $parts = $nodeValue->name->parts;
+                $parts = $nodeValue->name->getParts();
                 if (\count($parts) === 1) {
                     $value = $parts[0];
                 }

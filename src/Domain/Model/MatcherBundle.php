@@ -1,7 +1,7 @@
 <?php
-namespace TYPO3\CMS\Scanner\Domain\Model;
+namespace M12S\Scanner\Domain\Model;
 
-use TYPO3\CMS\Scanner\Utility;
+use M12S\Scanner\Utility;
 
 class MatcherBundle
 {

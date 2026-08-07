@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
+namespace M12S\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,19 +19,20 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Scanner\Matcher\MethodArgumentUnusedMatcher;
+use M12S\Scanner\Matcher\MethodArgumentUnusedMatcher;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class MethodArgumentUnusedMatcherTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function hitsFromFixtureAreFound()
     {
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/MethodArgumentUnusedMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -64,7 +65,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
     /**
      * @return array
      */
-    public function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider()
     {
         return [
             'two rest candidates with same number of arguments' => [
@@ -212,13 +213,11 @@ class MethodArgumentUnusedMatcherTest extends TestCase
        ];
     }
 
-    /**
-     * @test
-     * @dataProvider matchesReturnsExpectedRestFilesDataProvider
-     */
+    #[Test]
+    #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected)
     {
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
 
         $subject = new MethodArgumentUnusedMatcher($configuration);

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
+namespace M12S\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,19 +19,19 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Scanner\Matcher\FunctionCallMatcher;
+use M12S\Scanner\Matcher\FunctionCallMatcher;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class FunctionCallMatcherTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function hitsFromFixtureAreFound()
     {
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/FunctionCallMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -60,9 +60,7 @@ class FunctionCallMatcherTest extends TestCase
         $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function matchIsIgnoredIfIgnoreFileIsSet()
     {
         $phpCode = <<<'EOC'
@@ -81,7 +79,7 @@ class foo
 }
 EOC;
 
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
 
         $traverser = new NodeTraverser();

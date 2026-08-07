@@ -1,14 +1,14 @@
 <?php
-use TYPO3\CMS\Scanner\Domain\Model\MatcherBundleCollection;
-use TYPO3\CMS\Scanner\Matcher;
-use TYPO3\CMS\Scanner\ScannerFactory;
+use M12S\Scanner\Domain\Model\MatcherBundleCollection;
+use M12S\Scanner\Matcher;
+use M12S\Scanner\ScannerFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 error_reporting(E_ALL ^ E_NOTICE);
 
 $collection = new MatcherBundleCollection(
-    new \TYPO3\CMS\Scanner\Domain\Model\MatcherBundle(
+    new \M12S\Scanner\Domain\Model\MatcherBundle(
         __DIR__ . '/../config/Matcher/v9',
         '../TYPO3.CMS/typo3/sysext/core/Documentation/Changelog',
 

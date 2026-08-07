@@ -1,16 +1,16 @@
 <?php
-namespace TYPO3\CMS\Scanner;
+namespace M12S\Scanner;
 
 use PhpParser\Error;
 use PhpParser\Parser;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use TYPO3\CMS\Scanner\Domain\Model\DirectoryMatches;
-use TYPO3\CMS\Scanner\Domain\Model\FileMatches;
-use TYPO3\CMS\Scanner\Domain\Model\TheMatch;
-use TYPO3\CMS\Scanner\Domain\Model\MatcherBundleCollection;
-use TYPO3\CMS\Scanner\Matcher\AbstractCoreMatcher;
-use TYPO3\CMS\Scanner\Visitor\TraverserFactory;
+use M12S\Scanner\Domain\Model\DirectoryMatches;
+use M12S\Scanner\Domain\Model\FileMatches;
+use M12S\Scanner\Domain\Model\TheMatch;
+use M12S\Scanner\Domain\Model\MatcherBundleCollection;
+use M12S\Scanner\Matcher\AbstractCoreMatcher;
+use M12S\Scanner\Visitor\TraverserFactory;
 
 class Scanner
 {

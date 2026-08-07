@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
+namespace M12S\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,21 +18,22 @@ namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use TYPO3\CMS\Scanner\Matcher\ConstantMatcher;
-use TYPO3\CMS\Scanner\Visitor\GeneratorClassesResolver;
+use M12S\Scanner\Matcher\ConstantMatcher;
+use M12S\Scanner\Visitor\GeneratorClassesResolver;
 use PHPUnit\Framework\TestCase;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class ConstantMatcherTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function hitsFromFixtureAreFound()
     {
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/ConstantMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -63,7 +64,7 @@ class ConstantMatcherTest extends TestCase
     /**
      * @return array
      */
-    public function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider()
     {
         return [
             'a straight match' => [
@@ -89,13 +90,11 @@ class ConstantMatcherTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider matchesReturnsExpectedRestFilesDataProvider
-     */
+    #[Test]
+    #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected)
     {
-        $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
 
         $subject = new ConstantMatcher($configuration);

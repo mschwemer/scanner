@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit\Fixtures;
+namespace M12S\Scanner\Tests\Unit\Fixtures;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

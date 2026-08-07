@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit;
+namespace M12S\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,16 +16,15 @@ namespace TYPO3\CMS\Scanner\Tests\Unit;
  */
 
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Scanner\Matcher\MatcherFactory;
+use M12S\Scanner\Matcher\MatcherFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
  */
 class MatcherFactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowWithMissingClass()
     {
         $subject = new MatcherFactory();
@@ -39,9 +38,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowsWithMissingConfiration()
     {
         $subject = new MatcherFactory();
@@ -55,9 +52,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowsWithBothConfigurationFileAndConfigurationArray()
     {
         $subject = new MatcherFactory();
@@ -73,9 +68,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowsIfConfigurationFileDoesNotExist()
     {
         $subject = new MatcherFactory();
@@ -95,6 +88,7 @@ class MatcherFactoryTest extends TestCase
      *
      * @test_disabled
      */
+
     public function createAllThrowsIfConfigurationFileDoesNotReturnArray()
     {
         $subject = new MatcherFactory();
@@ -109,9 +103,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowsIfConfigurationArrayIsNotAnArray()
     {
         $subject = new MatcherFactory();
@@ -126,9 +118,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function createAllThrowIfMatcherDoesNotImplementCodeScannerInterface()
     {
         $subject = new MatcherFactory();

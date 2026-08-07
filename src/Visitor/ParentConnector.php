@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace TYPO3\CMS\Scanner\Visitor;
+namespace M12S\Scanner\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.

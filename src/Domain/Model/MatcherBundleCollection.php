@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\CMS\Scanner\Domain\Model;
+namespace M12S\Scanner\Domain\Model;
 
 class MatcherBundleCollection extends \ArrayObject
 {

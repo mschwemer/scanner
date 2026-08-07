@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
+namespace M12S\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,8 @@ namespace TYPO3\CMS\Scanner\Tests\Unit\Matcher;
  */
 
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Scanner\Matcher\AbstractCoreMatcher;
+use M12S\Scanner\Matcher\AbstractCoreMatcher;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test case
@@ -24,9 +25,9 @@ use TYPO3\CMS\Scanner\Matcher\AbstractCoreMatcher;
 class AbstractCoreMatcherTest extends TestCase
 {
     /**
-     * @test
      * @skip
      */
+    #[Test]
     public function validateMatcherDefinitionsRunsFineWithProperDefinition()
     {
         $this->markTestSkipped('must be revisited.');
@@ -44,9 +45,7 @@ class AbstractCoreMatcherTest extends TestCase
         $matcher->_call('validateMatcherDefinitions', ['requiredArg1']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validateMatcherDefinitionsThrowsIfRequiredArgIsNotInConfig()
     {
         $this->markTestSkipped('must be revisited.');
@@ -66,9 +65,7 @@ class AbstractCoreMatcherTest extends TestCase
         $matcher->_call('validateMatcherDefinitions', ['requiredArg1']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validateMatcherDefinitionsThrowsWithMissingRestFiles()
     {
         $this->markTestSkipped('must be revisited.');
@@ -85,9 +82,7 @@ class AbstractCoreMatcherTest extends TestCase
         $matcher->_call('validateMatcherDefinitions', []);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function validateMatcherDefinitionsThrowsWithEmptySingleRestFile()
     {
         $this->markTestSkipped('must be revisited.');
@@ -107,9 +102,7 @@ class AbstractCoreMatcherTest extends TestCase
         $matcher->_call('validateMatcherDefinitions', []);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function initializeMethodNameArrayThrowsWithInvalidKeys()
     {
         $this->markTestSkipped('must be revisited.');

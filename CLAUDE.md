@@ -8,6 +8,8 @@ A PHP library (`m12s/typo3-cms-scanner`, a fork of `typo3/cms-scanner`) that sta
 
 Matcher classes in `src/Matcher/` and visitors in `src/Visitor/` are ports of TYPO3 core's EXT:install extension scanner (hence the `@internal … only meant to be used within EXT:install` docblocks). Keeping them in sync with upstream core is a recurring task — see commits like `[FEATURE] Update code with changes in TYPO3 core`. Commit subjects follow the TYPO3 convention: `[FEATURE]`, `[TASK]`, `[BUGFIX]`.
 
+The library's own namespace is `M12S\Scanner` (it was `TYPO3\CMS\Scanner` before the fork diverged). **`TYPO3\…` strings elsewhere in the repo are data, not code**: every key in `config/Matcher/**` and most of `tests/**/Fixtures/` names a TYPO3 *core* class that the scanner searches for. A blanket search-and-replace across `TYPO3\` would silently destroy the rule sets. Two live core references also exist in real code — the `'TYPO3\CMS\Core\Utility\GeneralUtility'` literal in `GeneratorClassesResolver` that drives `makeInstance()` detection, and the imports in the dead `src/Visitor/MatcherFactory.php`.
+
 ## Commands
 
 Composer is configured with `bin-dir: .Build/bin` and `vendor-dir: .Build/vendor` — there is no top-level `vendor/`.
@@ -21,14 +23,14 @@ composer install
 
 There is no `phpunit.xml`, so tests must be given a path and there are no named suites. No linter or static analyser is configured.
 
+Tests use PHPUnit attributes (`#[Test]`, `#[DataProvider]`) — doc-comment metadata like `/** @test */` is silently ignored by PHPUnit 12 and will make a new test never run. Data provider methods must be `static`.
+
 ## Known state / gotchas
 
 Verify these before trusting them — they reflect the repository as of the last inspection:
 
-- **Nothing autoloads right now.** `composer.json` maps PSR-4 `M12S\Scanner\` → `src/`, but every file in `src/` and `tests/` still declares `TYPO3\CMS\Scanner`. Both `class_exists('TYPO3\CMS\Scanner\Scanner')` and `class_exists('M12S\Scanner\Scanner')` return false. Completing the rename across `src/` and `tests/` (then `composer dump-autoload`) is the fix.
-- **The test suite does not run.** Two independent causes, both predating the dependency bump:
-  - PHPUnit 12 dropped doc-comment metadata, so the `/** @test */` annotations no longer register anything — every test class reports "No tests found in class". They need `#[PHPUnit\Framework\Attributes\Test]` (and `#[DataProvider]`), and data provider methods must be `static`.
-  - `tests/` still uses the php-parser v4 API (`ParserFactory::create(ParserFactory::PREFER_PHP7)`), removed in v5. `src/` was already migrated (`createForVersion()`, `enterNode(): null`); the test-side equivalent is `(new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2))`.
+- **5 tests are skipped**, all in `AbstractCoreMatcherTest` with `markTestSkipped('must be revisited.')`. They call `$matcher->_call(...)`, a TYPO3 testing-framework accessible-mock idiom that this repo has no equivalent for. Long-standing, unrelated to the PHPUnit upgrade.
+- **Three matchers still read the removed `Name::$parts` property** — `MethodArgumentUnusedMatcher`, `MethodArgumentUnusedStaticMatcher`, and `ConstructorArgumentMatcher`, in the `$…->value->name->name->parts[0]` chain. Each sits behind `isset()`, so nothing crashes, but the guard can never observe a value under php-parser 5 and the surrounding condition is effectively constant. No test covers these paths. `ArrayMatcher` had the same bug unguarded and now uses `getParts()`.
 - **`src/Visitor/MatcherFactory.php` is dead code** — a verbatim core copy importing `TYPO3\CMS\Core\Utility\GeneralUtility` and `TYPO3\CMS\Install\ExtensionScanner\CodeScannerInterface`, neither of which exists here. The factory actually used is `src/Matcher/MatcherFactory.php`.
 - **`examples/test.php` is stale**: it requires `../vendor/autoload.php` (should be `.Build/vendor`) and calls `createFor(ParserFactory::PREFER_PHP7)`, while `ScannerFactory::createFor()` now takes no arguments.
 - `Readme.md`'s matcher list predates `AbstractMethodImplementationMatcher`, `ConstructorArgumentMatcher`, `MethodCallArgumentValueMatcher`, and `ScalarStringMatcher`.

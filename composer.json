@@ -1,5 +1,5 @@
 {
-    "name": "typo3/cms-scanner",
+    "name": "m12s/typo3-cms-scanner",
     "description": "TYPO3 CMS static file analysis",
     "type": "library",
     "license": "GPLv2",

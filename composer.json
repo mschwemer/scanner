@@ -2,7 +2,7 @@
     "name": "m12s/typo3-cms-scanner",
     "description": "TYPO3 CMS static file analysis",
     "type": "library",
-    "license": "GPLv2",
+    "license": "GPL-2.0-or-later",
     "authors": [
       {
         "name": "Christian Kuhn",

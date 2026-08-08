@@ -31,7 +31,7 @@ use M12R\Scanner\CodeScannerInterface;
  */
 abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeScannerInterface
 {
-    const NODE_RESOLVED_AS = 'nodeResolvedAs';
+    public const NODE_RESOLVED_AS = 'nodeResolvedAs';
 
     /**
      * Incoming main configuration array.

@@ -58,5 +58,8 @@ class MethodCallMatcherFixture
         $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5');
         // @extensionScannerIgnoreLine
         $bar->bar($foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5'));
+        // No match: dynamic method call, only the variable is named like the method
+        $confirmMsg = 'aDifferentMethod';
+        $foo->$confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
     }
 }

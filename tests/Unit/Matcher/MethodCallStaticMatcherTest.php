@@ -65,6 +65,44 @@ class MethodCallStaticMatcherTest extends TestCase
         $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
+    #[Test]
+    public function dynamicStaticMethodCallIsNoMatch()
+    {
+        $phpCode = <<<'EOC'
+<?php
+class foo
+{
+    public function aTest()
+    {
+        // No match: the variable is named like the deprecated method,
+        // the actually called method is a different one.
+        $getAjaxUrl = 'aDifferentMethod';
+        \TYPO3\CMS\Backend\Utility\BackendUtility::$getAjaxUrl('bar');
+    }
+}
+EOC;
+
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $statements = $parser->parse($phpCode);
+
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver());
+        $configuration = [
+            'TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl' => [
+                'numberOfMandatoryArguments' => 1,
+                'maximumNumberOfArguments' => 2,
+                'restFiles' => [
+                    'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
+                ],
+            ],
+        ];
+        $subject = new MethodCallStaticMatcher($configuration);
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        $this->assertEmpty($subject->getMatches());
+    }
+
     /**
      * @return array
      */

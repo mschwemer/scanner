@@ -20,6 +20,7 @@ namespace M12R\Scanner\Matcher;
 use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 
 /**
@@ -64,7 +65,7 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
         ) {
             $methodName = $node->name->name;
             $numberOfUsedArguments = 0;
-            if (isset($node->params) && is_array($node->params)) {
+            if (is_array($node->params ?? null)) {
                 $numberOfUsedArguments = count($node->params);
             }
             $numberOfAllowedArguments = $this->matcherDefinitions[$methodName]['newNumberOfArguments'];
@@ -80,11 +81,12 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
 
         // Match method call (not static) with number of arguments
         if ($node instanceof MethodCall
-            && isset($node->name->name) && array_key_exists($node->name->name, $this->matcherDefinitions)
+            && $node->name instanceof Identifier
+            && array_key_exists($node->name->name, $this->matcherDefinitions)
         ) {
             $methodName = $node->name->name;
             $numberOfUsedArguments = 0;
-            if (isset($node->args) && is_array($node->args)) {
+            if (is_array($node->args ?? null)) {
                 $numberOfUsedArguments = count($node->args);
             }
             // @todo: Test for argument unpacking

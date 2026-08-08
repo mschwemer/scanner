@@ -35,5 +35,8 @@ class MethodCallStaticMatcherFixture
         $foo->getAjaxUrl('bar');
         // @extensionScannerIgnoreLine
         $foo::getAjaxUrl('bar');
+        // No match: dynamic static call, only the variable is named like the method
+        $getAjaxUrl = 'aDifferentMethod';
+        BackendUtility::$getAjaxUrl('bar');
     }
 }

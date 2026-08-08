@@ -21,6 +21,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 
 /**
@@ -60,7 +61,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
         ) {
             $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($node->args);
 
-            if ($node->class instanceof FullyQualified) {
+            if ($node->class instanceof FullyQualified && $node->name instanceof Identifier) {
 
                 // 'Foo\Bar::aMethod()' -> strong match
                 $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
@@ -86,7 +87,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                     }
                 }
             } elseif ($node->class instanceof Variable
-                && isset($node->name->name)
+                && $node->name instanceof Identifier
                 && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
             ) {
                 $match = [

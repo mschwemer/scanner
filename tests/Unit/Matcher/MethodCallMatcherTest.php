@@ -103,6 +103,43 @@ EOC;
         $this->assertEmpty($subject->getMatches());
     }
 
+    #[Test]
+    public function dynamicMethodCallIsNoMatch()
+    {
+        $phpCode = <<<'EOC'
+<?php
+class foo
+{
+    public function aTest()
+    {
+        // No match: the variable is named like the deprecated method,
+        // the actually called method is a different one.
+        $confirmMsg = 'aDifferentMethod';
+        $foo->$confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
+    }
+}
+EOC;
+
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $statements = $parser->parse($phpCode);
+
+        $traverser = new NodeTraverser();
+        $configuration = [
+            'TYPO3\CMS\Backend\Clipboard\Clipboard->confirmMsg' => [
+                'numberOfMandatoryArguments' => 4,
+                'maximumNumberOfArguments' => 5,
+                'restFiles' => [
+                    'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
+                ],
+            ],
+        ];
+        $subject = new MethodCallMatcher($configuration);
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        $this->assertEmpty($subject->getMatches());
+    }
+
     /**
      * @return array
      */

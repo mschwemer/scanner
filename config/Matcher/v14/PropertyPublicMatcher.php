@@ -1214,9 +1214,34 @@ return [
             'Breaking-107856-DataHandlerRemoveInternalPropertyCopyWhichTablesandPropertiesNeverHideAtCopyandCopyTree.rst',
         ],
     ],
-    'TYPO3\CMS\Core\Authentication\BackendUserAuthentication->errorMessage' => [
+    'TYPO3\CMS\Core\Authentication\BackendUserAuthentication->errorMsg' => [
         'restFiles' => [
             'Deprecation-108568-BackendUserAuthenticationRecordEditAccessInternals.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->lastTypoLinkResult' => [
+        'restFiles' => [
+            'Deprecation-109575-ContentObjectRendererPropertiesAndMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->currentRecordNumber' => [
+        'restFiles' => [
+            'Deprecation-109575-ContentObjectRendererPropertiesAndMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->parentRecordNumber' => [
+        'restFiles' => [
+            'Deprecation-109575-ContentObjectRendererPropertiesAndMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->parentRecord' => [
+        'restFiles' => [
+            'Deprecation-109575-ContentObjectRendererPropertiesAndMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer->checkPid_badDoktypeList' => [
+        'restFiles' => [
+            'Deprecation-109575-ContentObjectRendererPropertiesAndMethods.rst',
         ],
     ],
 

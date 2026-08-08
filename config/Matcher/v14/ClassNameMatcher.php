@@ -2756,4 +2756,29 @@ return [
             'Deprecation-108667-DeprecateCommandNameAlreadyInUseException.rst',
         ],
     ],
+    'TYPO3\CMS\Install\Command\LanguagePackCommand' => [
+        'restFiles' => [
+            'Deprecation-109027-MoveLanguageUpdateCommandAndEventsToEXTcore.rst',
+        ],
+    ],
+    'TYPO3\CMS\Install\Service\Event\ModifyLanguagePacksEvent' => [
+        'restFiles' => [
+            'Deprecation-109027-MoveLanguageUpdateCommandAndEventsToEXTcore.rst',
+        ],
+    ],
+    'TYPO3\CMS\Install\Service\Event\ModifyLanguagePackRemoteBaseUrlEvent' => [
+        'restFiles' => [
+            'Deprecation-109027-MoveLanguageUpdateCommandAndEventsToEXTcore.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Form\FormResultCompiler' => [
+        'restFiles' => [
+            'Deprecation-109230-FormResultCompiler.rst',
+        ],
+    ],
+    'TYPO3\CMS\Lowlevel\Integrity\DatabaseIntegrityCheck' => [
+        'restFiles' => [
+            'Deprecation-107931-LowlevelDatabaseIntegrityCheck.rst',
+        ],
+    ],
 ];

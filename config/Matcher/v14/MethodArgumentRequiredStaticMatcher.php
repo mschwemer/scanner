@@ -9,11 +9,19 @@ return [
             'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::isOnCurrentHost' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-109523-GeneralUtilityIsOnCurrentHostWithoutRequest.rst',
+        ],
+    ],
     'TYPO3\CMS\Core\Utility\GeneralUtility::sanitizeLocalUrl' => [
-        'numberOfMandatoryArguments' => 1,
-        'maximumNumberOfArguments' => 1,
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
         'restFiles' => [
             'Breaking-101311-MakeParameterForGeneralUtilitySanitizeLocalUrlRequired.rst',
+            'Deprecation-109544-GeneralUtilitySanitizeLocalUrlWithoutRequest.rst',
         ],
     ],
     'TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin' => [
@@ -21,6 +29,14 @@ return [
         'maximumNumberOfArguments' => 5,
         'restFiles' => [
             'Deprecation-105076-PluginContentElementAndPluginSubTypes.rst',
+            'Important-105538-ListTypeAndSubTypes.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-109548-GeneralUtilityLocationHeaderUrlWithoutRequest.rst',
         ],
     ],
 ];

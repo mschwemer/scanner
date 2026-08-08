@@ -1714,6 +1714,13 @@ return [
             'Deprecation-107047-ExtensionManagementUtilityAddPiFlexFormValue.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToUserSettings' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-108843-ExtensionManagementUtilityAddFieldsToUserSettings.rst',
+        ],
+    ],
     'TYPO3\CMS\Core\Utility\PathUtility::getRelativePathTo' => [
         'numberOfMandatoryArguments' => 1,
         'maximumNumberOfArguments' => 1,
@@ -1768,6 +1775,55 @@ return [
         'maximumNumberOfArguments' => 4,
         'restFiles' => [
             'Deprecation-108761-BackendUtilityTSconfigMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getRecordLocalization' => [
+        'numberOfMandatoryArguments' => 3,
+        'maximumNumberOfArguments' => 4,
+        'restFiles' => [
+            'Deprecation-108810-BackendUtilityLocalizationMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getExistingPageTranslations' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-108810-BackendUtilityLocalizationMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::translationCount' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-108810-BackendUtilityLocalizationMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-109551-GeneralUtilityGetIndpEnv.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getLabelFromItemlist' => [
+        'numberOfMandatoryArguments' => 3,
+        'maximumNumberOfArguments' => 5,
+        'restFiles' => [
+            'Deprecation-109519-BackendUtilityItemListLabelMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getLabelFromItemListMerged' => [
+        'numberOfMandatoryArguments' => 4,
+        'maximumNumberOfArguments' => 5,
+        'restFiles' => [
+            'Deprecation-109519-BackendUtilityItemListLabelMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getLabelsFromItemsList' => [
+        'numberOfMandatoryArguments' => 3,
+        'maximumNumberOfArguments' => 6,
+        'restFiles' => [
+            'Deprecation-109519-BackendUtilityItemListLabelMethods.rst',
         ],
     ],
 ];

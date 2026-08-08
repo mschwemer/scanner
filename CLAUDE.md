@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A PHP library (`m12s/typo3-cms-scanner`, a fork of `typo3/cms-scanner`) that statically analyses PHP files for usage of code that TYPO3 deprecated or removed. It parses files with `nikic/php-parser` into an AST and runs a set of *matchers* (php-parser node visitors) over it, each driven by a *rule set* — a plain PHP array of deprecated symbols. It is a library only: it ships no CLI. Consumers build the tool around it (see `examples/test.php`).
+A PHP library (`m12r/typo3-cms-scanner`, a fork of `typo3/cms-scanner`) that statically analyses PHP files for usage of code that TYPO3 deprecated or removed. It parses files with `nikic/php-parser` into an AST and runs a set of *matchers* (php-parser node visitors) over it, each driven by a *rule set* — a plain PHP array of deprecated symbols. It is a library only: it ships no CLI. Consumers build the tool around it (see `examples/test.php`).
 
 Matcher classes in `src/Matcher/` and visitors in `src/Visitor/` are ports of TYPO3 core's EXT:install extension scanner (hence the `@internal … only meant to be used within EXT:install` docblocks). Keeping them in sync with upstream core is a recurring task — see commits like `[FEATURE] Update code with changes in TYPO3 core`. Commit subjects follow the TYPO3 convention: `[FEATURE]`, `[TASK]`, `[BUGFIX]`.
 
-The library's own namespace is `M12S\Scanner` (it was `TYPO3\CMS\Scanner` before the fork diverged). **`TYPO3\…` strings elsewhere in the repo are data, not code**: every key in `config/Matcher/**` and most of `tests/**/Fixtures/` names a TYPO3 *core* class that the scanner searches for. A blanket search-and-replace across `TYPO3\` would silently destroy the rule sets. Two live core references also exist in real code — the `'TYPO3\CMS\Core\Utility\GeneralUtility'` literal in `GeneratorClassesResolver` that drives `makeInstance()` detection, and the imports in the dead `src/Visitor/MatcherFactory.php`.
+The library's own namespace is `M12R\Scanner` (it was `TYPO3\CMS\Scanner` before the fork diverged). **`TYPO3\…` strings elsewhere in the repo are data, not code**: every key in `config/Matcher/**` and most of `tests/**/Fixtures/` names a TYPO3 *core* class that the scanner searches for. A blanket search-and-replace across `TYPO3\` would silently destroy the rule sets. Two live core references also exist in real code — the `'TYPO3\CMS\Core\Utility\GeneralUtility'` literal in `GeneratorClassesResolver` that drives `makeInstance()` detection, and the imports in the dead `src/Visitor/MatcherFactory.php`.
 
 ## Commands
 

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit;
+namespace M12R\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -38,7 +38,7 @@ EOC;
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \M12S\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new \M12R\Scanner\Visitor\GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
 
         // The resolver rewrites the class-string argument into its class constant
@@ -59,7 +59,7 @@ EOC;
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \M12S\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new \M12R\Scanner\Visitor\GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
         // A runtime-concatenated argument cannot be resolved statically, so it must
         // be left untouched rather than rewritten to a ::class constant.

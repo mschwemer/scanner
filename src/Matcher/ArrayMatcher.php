@@ -14,7 +14,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12S\Scanner\Matcher;
+namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;

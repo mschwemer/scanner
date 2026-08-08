@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit;
+namespace M12R\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ namespace M12S\Scanner\Tests\Unit;
  */
 
 use PHPUnit\Framework\TestCase;
-use M12S\Scanner\Matcher\MatcherFactory;
+use M12R\Scanner\Matcher\MatcherFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 /**

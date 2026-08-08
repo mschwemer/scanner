@@ -1,5 +1,5 @@
 <?php
-namespace M12S\Scanner\Domain\Model;
+namespace M12R\Scanner\Domain\Model;
 
 class TheMatch
 {

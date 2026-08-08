@@ -15,12 +15,12 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12S\Scanner\Matcher;
+namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeVisitorAbstract;
-use M12S\Scanner\CodeScannerInterface;
+use M12R\Scanner\CodeScannerInterface;
 
 /**
  * Single "core matcher" classes extend from this.

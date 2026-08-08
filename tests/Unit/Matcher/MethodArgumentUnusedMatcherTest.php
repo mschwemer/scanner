@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit\Matcher;
+namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -19,7 +19,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
-use M12S\Scanner\Matcher\MethodArgumentUnusedMatcher;
+use M12R\Scanner\Matcher\MethodArgumentUnusedMatcher;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace M12S\Scanner\Tests\Unit\Matcher\Fixtures;
+namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
  * This file is part of the TYPO3 CMS project.

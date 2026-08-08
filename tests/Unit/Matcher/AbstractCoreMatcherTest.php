@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit\Matcher;
+namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ namespace M12S\Scanner\Tests\Unit\Matcher;
  */
 
 use PHPUnit\Framework\TestCase;
-use M12S\Scanner\Matcher\AbstractCoreMatcher;
+use M12R\Scanner\Matcher\AbstractCoreMatcher;
 use PHPUnit\Framework\Attributes\Test;
 
 /**

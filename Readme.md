@@ -14,7 +14,7 @@ TYPO3 publishes [breaking changes and deprecations since version 7](https://docs
 This library uses the [PHP parser](https://github.com/nikic/PHP-Parser) written by [Nikita Popov](https://github.com/nikic). The parser transforms the PHP code from a file into an [Abstract Syntax Tree (AST)](https://github.com/nikic/PHP-Parser/blob/master/doc/component/Walking_the_AST.markdown). This can then be easily analysed using 'Matchers' and accompanying 'Rules'.
 
 ## Matchers
-Every node visited by the node traverser, will be checked using all Matchers specified in the `\M12S\Scanner\Domain\Model\MatcherBundle`.
+Every node visited by the node traverser, will be checked using all Matchers specified in the `\M12R\Scanner\Domain\Model\MatcherBundle`.
 
 Currently we have the followign matchers:
 

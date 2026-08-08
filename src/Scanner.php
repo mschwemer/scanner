@@ -1,16 +1,16 @@
 <?php
-namespace M12S\Scanner;
+namespace M12R\Scanner;
 
 use PhpParser\Error;
 use PhpParser\Parser;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use M12S\Scanner\Domain\Model\DirectoryMatches;
-use M12S\Scanner\Domain\Model\FileMatches;
-use M12S\Scanner\Domain\Model\TheMatch;
-use M12S\Scanner\Domain\Model\MatcherBundleCollection;
-use M12S\Scanner\Matcher\AbstractCoreMatcher;
-use M12S\Scanner\Visitor\TraverserFactory;
+use M12R\Scanner\Domain\Model\DirectoryMatches;
+use M12R\Scanner\Domain\Model\FileMatches;
+use M12R\Scanner\Domain\Model\TheMatch;
+use M12R\Scanner\Domain\Model\MatcherBundleCollection;
+use M12R\Scanner\Matcher\AbstractCoreMatcher;
+use M12R\Scanner\Visitor\TraverserFactory;
 
 class Scanner
 {

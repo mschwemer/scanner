@@ -1,7 +1,7 @@
 <?php
-namespace M12S\Scanner\Domain\Model;
+namespace M12R\Scanner\Domain\Model;
 
-use M12S\Scanner\Utility;
+use M12R\Scanner\Utility;
 
 class MatcherBundle
 {

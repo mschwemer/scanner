@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit;
+namespace M12R\Scanner\Tests\Unit;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -34,7 +34,7 @@ class CodeStatisticsTest extends TestCase
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
         $traverser = new NodeTraverser();
-        $subject = new \M12S\Scanner\Visitor\CodeStatistics();
+        $subject = new \M12R\Scanner\Visitor\CodeStatistics();
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
 

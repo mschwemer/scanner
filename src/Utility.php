@@ -1,5 +1,5 @@
 <?php
-namespace M12S\Scanner;
+namespace M12R\Scanner;
 
 class Utility
 {

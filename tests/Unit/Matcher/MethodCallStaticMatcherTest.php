@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace M12S\Scanner\Tests\Unit\Matcher;
+namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,8 +18,8 @@ namespace M12S\Scanner\Tests\Unit\Matcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use M12S\Scanner\Matcher\MethodCallStaticMatcher;
-use M12S\Scanner\Visitor\GeneratorClassesResolver;
+use M12R\Scanner\Matcher\MethodCallStaticMatcher;
+use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PHPUnit\Framework\TestCase;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;

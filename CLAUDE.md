@@ -29,8 +29,9 @@ Tests use PHPUnit attributes (`#[Test]`, `#[DataProvider]`) — doc-comment meta
 
 Verify these before trusting them — they reflect the repository as of the last inspection:
 
-- **5 tests are skipped**, all in `AbstractCoreMatcherTest` with `markTestSkipped('must be revisited.')`. They call `$matcher->_call(...)`, a TYPO3 testing-framework accessible-mock idiom that this repo has no equivalent for. Long-standing, unrelated to the PHPUnit upgrade.
-- **Three matchers still read the removed `Name::$parts` property** — `MethodArgumentUnusedMatcher`, `MethodArgumentUnusedStaticMatcher`, and `ConstructorArgumentMatcher`, in the `$…->value->name->name->parts[0]` chain. Each sits behind `isset()`, so nothing crashes, but the guard can never observe a value under php-parser 5 and the surrounding condition is effectively constant. No test covers these paths. `ArrayMatcher` had the same bug unguarded and now uses `getParts()`.
+- **`config/Matcher/v14` and `src/` are in sync with core `14.3`** as of 2026-08-08 — see `[FEATURE] Add missing matchers up to TYPO3 14.3` and the `instanceof Identifier` port. The deviations that are *meant* to stay are listed under "Syncing with TYPO3 core".
+- **5 tests are skipped** out of 98, all in `AbstractCoreMatcherTest` with `markTestSkipped('must be revisited.')`. They call `$matcher->_call(...)`, a TYPO3 testing-framework accessible-mock idiom that this repo has no equivalent for. Long-standing, unrelated to the PHPUnit upgrade.
+- **Three matchers still read the removed `Name::$parts` property** — `MethodArgumentUnusedMatcher`, `MethodArgumentUnusedStaticMatcher`, and `ConstructorArgumentMatcher`, in the `$…->value->name->name->parts[0]` chain. Each sits behind `isset()`, so nothing crashes, but the guard can never observe a value under php-parser 5 and the surrounding condition is effectively constant. No test covers these paths. `ArrayMatcher` had the same bug unguarded and now uses `getParts()`. **Core 14.3 carries the identical code** in `MethodArgumentUnusedMatcher` and `ConstructorArgumentMatcher`, so this is an upstream bug, not fork drift — fixing it here creates drift and changes matching behaviour. Only `MethodArgumentUnusedStaticMatcher` (fork-local) is ours alone.
 - **`src/Visitor/MatcherFactory.php` is dead code** — a verbatim core copy importing `TYPO3\CMS\Core\Utility\GeneralUtility` and `TYPO3\CMS\Install\ExtensionScanner\CodeScannerInterface`, neither of which exists here. The factory actually used is `src/Matcher/MatcherFactory.php`.
 - **`examples/test.php` is stale**: it requires `../vendor/autoload.php` (should be `.Build/vendor`) and calls `createFor(ParserFactory::PREFER_PHP7)`, while `ScannerFactory::createFor()` now takes no arguments.
 - `Readme.md`'s matcher list predates `AbstractMethodImplementationMatcher`, `ConstructorArgumentMatcher`, `MethodCallArgumentValueMatcher`, and `ScalarStringMatcher`.
@@ -61,3 +62,75 @@ The set of files differs per version — `v14` adds `MethodCallArgumentValueMatc
 ## Tests
 
 `tests/Unit/Matcher/<Matcher>Test.php` pairs with `tests/Unit/Matcher/Fixtures/<Matcher>Fixture.php`. Each test parses the fixture, runs the traverser, and asserts the **exact line numbers** the matcher hit. Editing a fixture shifts those numbers — update the expectations in the same change. New or extended matchers are expected to come with both files.
+
+## Syncing with TYPO3 core
+
+The **rule sets** (`config/Matcher/vNN`) and the **classes** (`src/`) are two independent jobs; keep them in separate commits.
+
+### Fetching upstream
+
+Pin a release branch, never `main` — `main` carries rules for the next unreleased version. The baseline for `v14` is `14.3`.
+
+```bash
+# Listings via gh: unauthenticated api.github.com rate-limits within a few calls
+gh api "repos/TYPO3/typo3/contents/typo3/sysext/install/Configuration/ExtensionScanner/Php?ref=14.3" --jq '.[].name'
+gh api "repos/TYPO3/typo3/git/trees/14.3?recursive=1" \
+    --jq '.tree[] | select(.path | startswith("typo3/sysext/install/Classes/ExtensionScanner/")) | .path'
+# File contents via raw.githubusercontent.com
+curl -sS "https://raw.githubusercontent.com/TYPO3/typo3/14.3/<path>" -o <target>
+```
+
+Always anchor tree filters on `Classes/…`. A bare `ExtensionScanner/Php/Matcher` pattern also matches the `Tests/` tree and will silently pull in test fixtures.
+
+- rules → `typo3/sysext/install/Configuration/ExtensionScanner/Php/<Matcher>.php`
+- classes → `typo3/sysext/install/Classes/ExtensionScanner/` — `CodeScannerInterface.php`, `Php/CodeStatistics.php`, `Php/GeneratorClassesResolver.php`, `Php/MatcherFactory.php`, `Php/Matcher/*.php`
+
+### Updating rule sets
+
+Compare sizes to find candidate files, then work at *key* level, never text level:
+
+1. Parse both sides with php-parser from `.Build/vendor` and walk `Return_ → Array_ → items`; the key is `$item->key->value` and the source span is `getStartLine()`/`getEndLine()`. Classify every key as **missing** (upstream only), **changed** (present both sides, different value), or **local-only**.
+2. Prove the divergence lives entirely inside entries: blank out every item's line span on both sides and diff the remainder. A zero diff means the headers, section comments (`// Removed classes`) and trailing `/** Note (leave this at the bottom) */` blocks agree — only then is rebuilding a file from upstream text safe.
+3. Rebuild each differing file from the upstream text, then re-apply whatever the request preserves (local values for changed keys, local-only keys re-inserted after their local predecessor). This keeps upstream's grouping, so new `PageRenderer` rules land beside the existing ones. **Never regenerate with `var_export()`** — it reformats every entry and buries the real change.
+4. Verify programmatically, not by eye: every pre-existing entry byte-identical unless deliberately updated, every upstream entry present with upstream text *and* value, no invented or duplicated keys, `php -l` per file.
+
+**"Add the missing rules" and "update the changed rules" are different requests — ask which is meant.** Changed entries can alter scan output rather than just docs: the 14.3 `sanitizeLocalUrl` update raised `numberOfMandatoryArguments` from 1 to 2, so single-argument calls begin reporting.
+
+### Updating classes
+
+Diff with namespaces normalised onto neutral placeholders on both sides, longest prefix first:
+
+| upstream | local |
+|---|---|
+| `TYPO3\CMS\Install\ExtensionScanner\Php\Matcher` | `M12R\Scanner\Matcher` |
+| `TYPO3\CMS\Install\ExtensionScanner\Php` | `M12R\Scanner\Visitor` |
+| `TYPO3\CMS\Install\ExtensionScanner` | `M12R\Scanner` |
+
+When a file's only remaining difference *is* the change being ported, copy upstream and rewrite the single `namespace` line instead of hand-editing:
+
+```bash
+perl -pe 's{^namespace TYPO3\\CMS\\Install\\ExtensionScanner\\Php\\Matcher;$}{namespace M12R\\Scanner\\Matcher;}' \
+    <upstream-file> > src/Matcher/<Matcher>.php
+```
+
+**Never port these — they are the fork, and porting them breaks the library:**
+
+- Anything reaching for `TYPO3\CMS\Core\Utility\GeneralUtility`; the class does not exist here, so each use is an instant fatal. `AbstractCoreMatcher::trimExplode()` stands in for `GeneralUtility::trimExplode()` (used by `AbstractCoreMatcher`, `AbstractMethodImplementationMatcher` and `ArrayDimensionMatcher`); `GeneratorClassesResolver` keeps the FQCN as a string literal instead of `GeneralUtility::class`; `Matcher/MatcherFactory` uses `configurationFile` as-is instead of `getFileAbsFileName()`.
+- `Matcher/MatcherFactory::extendConfiguration()` — implements `MatcherBundle`'s `restFiles` prefixing, which core has no equivalent for. Dropping it strips the documentation path from every `.rst` reference.
+- `CodeScannerInterface extends NodeVisitor` — core dropped the inheritance; keep it. `TraverserFactory::createTraverser()` passes matchers straight into `$traverser->addVisitor()`, and consumers implement this interface.
+- The four matchers core deleted but the `v7`/`v8` rule sets still need: `ArrayMatcher`, `ClassNamePatternMatcher`, `GlobalMatcher`, `MethodArgumentUnusedStaticMatcher`. They have no upstream counterpart, so apply core's matcher-wide fixes to them by hand.
+
+After a completed sync exactly six files should still differ from core: `CodeScannerInterface`, `Matcher/AbstractCoreMatcher`, `Matcher/AbstractMethodImplementationMatcher`, `Matcher/ArrayDimensionMatcher`, `Matcher/MatcherFactory` and `Visitor/GeneratorClassesResolver`. A seventh means something was missed or wrongly ported.
+
+### Covering a ported behaviour change
+
+- Append fixture cases at the **end** of the fixture's method, so the exact-line-number expectations of existing tests don't shift.
+- Prove a new test actually guards the change: revert the `src/` edit, confirm the test fails, restore it, confirm the suite is green again.
+
+### Crib sheet for scratch scripts
+
+- autoload `.Build/vendor/autoload.php`
+- `ScannerFactory::create()->createFor()` — `createFor()` is an instance method and takes no arguments
+- `Scanner::scanFile($file, $collection)` — the bundle collection is a per-call argument
+- `TheMatch::getType()` returns the severity; there is no `getSeverity()`
+- grepping for `$node->name->name` needs `grep -F`
